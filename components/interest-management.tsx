@@ -74,7 +74,6 @@ export function InterestManagement() {
         breadcrumb={['Coffee Admin', 'Interests']}
         title="Manage Interests"
       />
-
       <div className="flex-1 p-4 md:p-8 overflow-auto">
         <div className="space-y-4 md:space-y-6">
           {/* Add Interest Input */}
@@ -91,7 +90,7 @@ export function InterestManagement() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleAddInterest}
-              className="px-4 py-2.5 text-white rounded-lg font-600 text-sm transition flex items-center justify-center gap-2 whitespace-nowrap hover:opacity-90"
+              className="px-4 py-2.5 text-white rounded-lg font-600 text-sm transition flex items-center justify-center gap-2 whitespace-nowrap hover:opacity-90 cursor-pointer"
               style={{ backgroundColor: '#fa9233' }}
             >
               <Plus size={18} />
@@ -143,7 +142,7 @@ export function InterestManagement() {
                                 whileHover={{ scale: 1.15 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => handleEditSave(interest.id)}
-                                className="p-1.5 md:p-2 hover:bg-orange-500/10 rounded-lg transition"
+                                className="p-1.5 md:p-2 hover:bg-orange-500/10 rounded-lg transition cursor-pointer"
                                 style={{ color: '#fa9233' }}
                                 title="Save changes"
                               >
@@ -153,7 +152,7 @@ export function InterestManagement() {
                                 whileHover={{ scale: 1.15 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => setEditingId(null)}
-                                className="p-1.5 md:p-2 hover:bg-red-500/10 rounded-lg transition text-red-500"
+                                className="p-1.5 md:p-2 hover:bg-red-500/10 rounded-lg transition text-red-500 cursor-pointer"
                                 title="Cancel edit"
                               >
                                 <X size={16} className="md:w-[18px] md:h-[18px]" />
@@ -165,7 +164,7 @@ export function InterestManagement() {
                                 whileHover={{ scale: 1.15 }}
                                 whileTap={{ scale: 0.9 }}
                                 onClick={() => handleEditStart(interest)}
-                                className="p-1.5 md:p-2 hover:bg-orange-500/10 rounded-lg transition"
+                                className="p-1.5 md:p-2 hover:bg-orange-500/10 rounded-lg transition cursor-pointer"
                                 style={{ color: '#fa9233' }}
                                 title="Edit interest"
                               >
@@ -178,7 +177,7 @@ export function InterestManagement() {
                                   setSelectedInterest(interest)
                                   setIsDeleteOpen(true)
                                 }}
-                                className="p-1.5 md:p-2 hover:bg-red-500/10 rounded-lg transition text-red-500"
+                                className="p-1.5 md:p-2 hover:bg-red-500/10 rounded-lg transition text-red-500 cursor-pointer"
                                 title="Delete interest"
                               >
                                 <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />

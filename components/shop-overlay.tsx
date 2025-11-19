@@ -89,7 +89,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit }: ShopOverlayProps)
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="p-1.5 hover:bg-background rounded-lg transition-all flex-shrink-0"
+                  className="p-1.5 hover:bg-background rounded-lg transition-all flex-shrink-0 cursor-pointer"
                 >
                   <X size={16} className="text-muted" />
                 </motion.button>
@@ -120,7 +120,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit }: ShopOverlayProps)
                       onChange={handleImageUpload}
                       className="hidden"
                     />
-                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:opacity-90 transition text-xs text-white font-500" style={{ backgroundColor: '#fa9233' }}>
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:opacity-90 transition text-xs text-white font-500 cursor-pointer" style={{ backgroundColor: '#fa9233' }}>
                       <Upload size={14} />
                       Change Image
                     </div>
@@ -185,7 +185,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit }: ShopOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCancel}
-                    className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all"
+                    className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all cursor-pointer"
                   >
                     Cancel
                   </motion.button>
@@ -193,7 +193,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit }: ShopOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90"
+                    className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90 cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     <Save size={14} />
@@ -206,7 +206,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit }: ShopOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onClose}
-                    className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all"
+                    className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all cursor-pointer"
                   >
                     Close
                   </motion.button>
@@ -214,7 +214,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit }: ShopOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleEdit}
-                    className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90"
+                    className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90 cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     <Edit2 size={14} />

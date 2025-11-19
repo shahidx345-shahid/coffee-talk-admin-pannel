@@ -28,7 +28,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen = true, onClos
           setActiveSection(item.id)
           onClose?.()
         }}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all ${
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
           isActive
             ? 'text-white'
             : 'text-muted hover:bg-surface'

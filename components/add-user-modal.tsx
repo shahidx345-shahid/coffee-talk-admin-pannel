@@ -40,15 +40,19 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
             exit={{ opacity: 0, scale: 0.95, y: 30 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            onClick={onClose}
           >
-            <div className="bg-background rounded-lg border border-border p-4 sm:p-6 shadow-xl w-full max-w-sm max-h-[85vh] overflow-y-auto">
+            <div 
+              className="bg-background rounded-lg border border-border p-4 sm:p-6 shadow-xl w-full max-w-sm max-h-[85vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
               <div className="flex items-center justify-between mb-4 sm:mb-6">
                 <h2 className="text-base sm:text-lg font-bold text-foreground pr-2">Add New User</h2>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="p-1.5 hover:bg-surface rounded-lg transition flex-shrink-0 text-muted hover:text-foreground"
+                  className="p-1.5 hover:bg-surface rounded-lg transition flex-shrink-0 text-muted hover:text-foreground cursor-pointer"
                 >
                   <X size={18} />
                 </motion.button>
@@ -94,7 +98,7 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-xs sm:text-sm hover:opacity-90 transition-colors"
+                    className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-xs sm:text-sm hover:opacity-90 transition-colors cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     Add User
@@ -104,7 +108,7 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                     whileTap={{ scale: 0.98 }}
                     type="button"
                     onClick={onClose}
-                    className="flex-1 px-4 py-2.5 border-2 border-border text-foreground rounded-lg font-600 text-xs sm:text-sm hover:bg-surface transition-colors"
+                    className="flex-1 px-4 py-2.5 border-2 border-border text-foreground rounded-lg font-600 text-xs sm:text-sm hover:bg-surface transition-colors cursor-pointer"
                   >
                     Cancel
                   </motion.button>

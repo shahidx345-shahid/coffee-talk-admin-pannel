@@ -79,7 +79,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit }: UserOverlayProps)
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="p-1.5 hover:bg-background rounded-lg transition-all flex-shrink-0"
+                  className="p-1.5 hover:bg-background rounded-lg transition-all flex-shrink-0 cursor-pointer"
                 >
                   <X size={18} className="text-muted" />
                 </motion.button>
@@ -178,7 +178,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit }: UserOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCancel}
-                    className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight"
+                    className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
                   >
                     Cancel
                   </motion.button>
@@ -186,7 +186,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit }: UserOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight"
+                    className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     <Save size={16} />
@@ -199,7 +199,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit }: UserOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={onClose}
-                    className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight"
+                    className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
                   >
                     Close
                   </motion.button>
@@ -207,7 +207,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit }: UserOverlayProps)
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleEdit}
-                    className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight"
+                    className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     <Edit2 size={16} />

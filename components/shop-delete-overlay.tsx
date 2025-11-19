@@ -61,7 +61,7 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
                   disabled={isLoading}
-                  className="p-1.5 hover:bg-red-100 rounded-lg transition-all flex-shrink-0 disabled:opacity-50"
+                  className="p-1.5 hover:bg-red-100 rounded-lg transition-all flex-shrink-0 disabled:opacity-50 cursor-pointer"
                 >
                   <X size={16} className="text-red-700" />
                 </motion.button>
@@ -120,7 +120,7 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
                 whileTap={isLoading ? {} : { scale: 0.98 }}
                 onClick={onClose}
                 disabled={isLoading}
-                className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all disabled:opacity-50"
+                className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </motion.button>
@@ -129,7 +129,7 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
                 whileTap={isLoading ? {} : { scale: 0.98 }}
                 onClick={handleConfirm}
                 disabled={isLoading}
-                className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90 disabled:opacity-50"
+                className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90 disabled:opacity-50 cursor-pointer"
                 style={{ backgroundColor: '#ef4444' }}
               >
                 <Trash2 size={14} />

@@ -11,6 +11,7 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<string | null>(null)
 
   const navItems = [
     { id: 'users', label: 'User management', icon: Users },
@@ -30,7 +31,7 @@ export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderPr
           {/* Hamburger Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 rounded-lg hover:bg-surface transition-colors"
+            className="p-2 rounded-lg hover:bg-surface transition-colors cursor-pointer"
             whileTap={{ scale: 0.95 }}
             whileHover={{ 
               backgroundColor: 'rgba(250, 146, 51, 0.1)',
@@ -48,10 +49,13 @@ export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderPr
           {/* Logo and Title */}
           <div className="flex items-center gap-2">
             <motion.div 
-              className="text-2xl"
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm"
               animate={{ scale: isOpen ? 1.1 : 1 }}
-              whileHover={{ scale: 1.2, color: '#fa9233' }}
+              whileHover={{ scale: 1.2 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              style={{ 
+                backgroundColor: '#03a3ec'
+              }}
             >
               ☕
             </motion.div>
@@ -77,12 +81,13 @@ export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderPr
         <nav className="flex flex-col p-4 space-y-2">
           {navItems.map((item, idx) => {
             const Icon = item.icon
-            const isActive = activeSection === item.id
+            const isActive = selectedItem === item.id
 
             return (
               <motion.button
                 key={item.id}
                 onClick={() => {
+                  setSelectedItem(item.id)
                   setActiveSection(item.id)
                   setIsOpen(false)
                 }}
@@ -96,9 +101,8 @@ export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderPr
                 transition={{ delay: idx * 0.1 }}
                 whileTap={{ scale: 0.98 }}
                 whileHover={{
-                  backgroundColor: isActive ? '#fa9233' : 'rgba(250, 146, 51, 0.1)',
-                  border: isActive ? 'none' : '1px solid rgba(250, 146, 51, 0.3)',
-                  color: isActive ? 'white' : '#fa9233',
+                  backgroundColor: '#fa9233',
+                  color: 'white',
                   scale: 1.02
                 }}
               >

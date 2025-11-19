@@ -87,7 +87,7 @@ export function UserManagement() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-3 md:px-4 py-2 text-white rounded-lg font-500 text-xs md:text-sm whitespace-nowrap transition hover:opacity-90"
+            className="flex items-center gap-2 px-3 md:px-4 py-2 text-white rounded-lg font-500 text-xs md:text-sm whitespace-nowrap transition hover:opacity-90 cursor-pointer"
             style={{ backgroundColor: '#fa9233' }}
           >
             <Plus size={18} />
@@ -113,7 +113,7 @@ export function UserManagement() {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className="px-3 py-2.5 border border-border rounded-lg text-sm font-500 text-foreground hover:bg-surface transition flex items-center justify-center gap-2"
+              className="px-3 py-2.5 border border-border rounded-lg text-sm font-500 text-foreground hover:bg-surface transition flex items-center justify-center gap-2 cursor-pointer"
             >
               <Filter size={18} />
               <span className="hidden sm:inline">Filters</span>
@@ -168,7 +168,7 @@ export function UserManagement() {
                             setSelectedUser(user)
                             setIsUserOverlayOpen(true)
                           }}
-                          className="p-1.5 md:p-2 hover:bg-blue/10 rounded-lg transition"
+                          className="p-1.5 md:p-2 hover:bg-blue/10 rounded-lg transition cursor-pointer"
                           style={{ color: '#03a3ec' }}
                           title="View details"
                         >
@@ -181,7 +181,7 @@ export function UserManagement() {
                             setSelectedUser(user)
                             setIsOverlayOpen(true)
                           }}
-                          className="p-1.5 md:p-2 hover:bg-orange-500/10 rounded-lg transition"
+                          className="p-1.5 md:p-2 hover:bg-orange-500/10 rounded-lg transition cursor-pointer"
                           style={{ color: '#fa9233' }}
                           title="Edit user"
                         >
@@ -194,7 +194,7 @@ export function UserManagement() {
                             setSelectedUser(user)
                             setIsDeleteOpen(true)
                           }}
-                          className="p-1.5 md:p-2 hover:bg-red-500/10 rounded-lg transition text-red-500"
+                          className="p-1.5 md:p-2 hover:bg-red-500/10 rounded-lg transition text-red-500 cursor-pointer"
                           title="Delete user"
                         >
                           <Trash2 size={16} className="md:w-[18px] md:h-[18px]" />

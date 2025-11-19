@@ -62,7 +62,7 @@ export function UserDeleteOverlay({ user, isOpen, onClose, onConfirm, isLoading 
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
                   disabled={isLoading}
-                  className="p-1.5 hover:bg-red-100 rounded-lg transition-all flex-shrink-0 disabled:opacity-50"
+                  className="p-1.5 hover:bg-red-100 rounded-lg transition-all flex-shrink-0 disabled:opacity-50 cursor-pointer"
                 >
                   <X size={18} className="text-red-700" />
                 </motion.button>
@@ -126,7 +126,7 @@ export function UserDeleteOverlay({ user, isOpen, onClose, onConfirm, isLoading 
                 whileTap={isLoading ? {} : { scale: 0.98 }}
                 onClick={onClose}
                 disabled={isLoading}
-                className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight disabled:opacity-50"
+                className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight disabled:opacity-50 cursor-pointer"
               >
                 Cancel
               </motion.button>
@@ -135,7 +135,7 @@ export function UserDeleteOverlay({ user, isOpen, onClose, onConfirm, isLoading 
                 whileTap={isLoading ? {} : { scale: 0.98 }}
                 onClick={handleConfirm}
                 disabled={isLoading}
-                className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight disabled:opacity-50"
+                className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight disabled:opacity-50 cursor-pointer"
                 style={{ backgroundColor: '#ef4444' }}
               >
                 <Trash2 size={16} />
