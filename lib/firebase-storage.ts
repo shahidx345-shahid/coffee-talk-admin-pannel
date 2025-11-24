@@ -27,6 +27,9 @@ export const firebaseStorageService = {
     }
   },
 
+
+
+  
   // Upload coffee shop image
   async uploadCoffeeShopImage(file: File): Promise<string> {
     return this.uploadImage(file, 'coffee-shops')

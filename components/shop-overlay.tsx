@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, MapPin, Edit2, Save, Upload, ChevronLeft, ChevronRight, Loader } from 'lucide-react'
+import { X, MapPin, Edit2, Save, Upload, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 interface Shop {
@@ -29,7 +29,6 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
   const [editData, setEditData] = useState<Shop | null>(null)
   const [currentPictureIndex, setCurrentPictureIndex] = useState(0)
   const [autoRotate, setAutoRotate] = useState(true)
-  const [isGettingLocation, setIsGettingLocation] = useState(false)
 
   // All hooks must be called before any conditional returns
   useEffect(() => {
@@ -189,44 +188,6 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
     }
   }
 
-  const handleGetLiveLocation = async () => {
-    setIsGettingLocation(true)
-    try {
-      if (!navigator.geolocation) {
-        console.warn('Geolocation is not supported by your browser')
-        setIsGettingLocation(false)
-        return
-      }
-
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const { latitude, longitude } = position.coords
-          const locationName = await getLocationName(latitude, longitude)
-          
-          setEditData({
-            ...editData!,
-            location: locationName,
-            latitude: Math.round(latitude * 100000) / 100000,
-            longitude: Math.round(longitude * 100000) / 100000
-          })
-          setIsGettingLocation(false)
-        },
-        (error) => {
-          console.warn('Geolocation error:', error?.message || 'User denied location access')
-          setIsGettingLocation(false)
-        },
-        {
-          enableHighAccuracy: true,
-          timeout: 10000,
-          maximumAge: 0
-        }
-      )
-    } catch (error) {
-      console.error('Error in handleGetLiveLocation:', error)
-      setIsGettingLocation(false)
-    }
-  }
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -245,13 +206,13 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-xs sm:max-w-sm md:max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-60px)] sm:max-h-[calc(100vh-70px)] md:max-h-[90vh] flex flex-col mt-16 md:mt-0"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-0.75rem)] xs:w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-xs xs:max-w-sm sm:max-w-sm md:max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-50px)] xs:max-h-[calc(100vh-60px)] sm:max-h-[calc(100vh-70px)] md:max-h-[90vh] flex flex-col mt-0 md:mt-0"
           >
             {/* Header */}
-            <div className="relative p-2 sm:p-3 md:p-4 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
-              <div className="flex items-center justify-between gap-2 sm:gap-3 md:gap-3">
+            <div className="relative p-1.5 xs:p-2 sm:p-3 md:p-4 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
+              <div className="flex items-center justify-between gap-1.5 xs:gap-2 sm:gap-3 md:gap-3">
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-sm sm:text-base md:text-lg font-700 text-foreground truncate">
+                  <h2 className="text-xs xs:text-sm sm:text-base md:text-lg font-700 text-foreground truncate">
                     {isEditing ? 'Edit Shop' : 'Shop Details'}
                   </h2>
                   <p className="text-xs text-muted mt-0.5 font-500">Manage shop information</p>
@@ -260,15 +221,15 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={onClose}
-                  className="p-1.5 hover:bg-background rounded-lg transition-all flex-shrink-0 cursor-pointer"
+                  className="p-1 xs:p-1.5 hover:bg-background rounded-lg transition-all flex-shrink-0 cursor-pointer"
                 >
-                  <X size={16} className="text-muted" />
+                  <X size={14} className="xs:w-4 xs:h-4 text-muted" />
                 </motion.button>
               </div>
             </div>
 
-            {/* Content */}
-            <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-2 sm:space-y-2.5 md:space-y-3 min-h-0">
+            {/* Scrollable Content with Picture, Info Grid, and Action Buttons */}
+            <div className="overflow-y-auto flex-1 flex flex-col min-h-0 p-1.5 xs:p-2 sm:p-2.5 md:p-4 space-y-1.5 xs:space-y-2 sm:space-y-2.5 md:space-y-3">
               {/* Picture Section with Auto-Rotate */}
               <motion.div
                 className="flex flex-col items-center gap-1.5 sm:gap-2 md:gap-3 pb-2 sm:pb-2.5 md:pb-3 border-b border-border/50"
@@ -277,7 +238,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                 transition={{ delay: 0.1 }}
               >
                 {/* Main Picture Display */}
-                <div className="relative w-full aspect-square rounded-lg bg-surface border-2 border-border flex items-center justify-center overflow-hidden flex-shrink-0">
+                <div className="relative w-full aspect-video xs:aspect-square rounded-lg bg-surface border-2 border-border flex items-center justify-center overflow-hidden flex-shrink-0">
                   {pictures[currentPictureIndex]?.startsWith('data:') || pictures[currentPictureIndex]?.startsWith('http') ? (
                     <img src={pictures[currentPictureIndex]} alt={`${displayShop.name} ${currentPictureIndex + 1}`} className="w-full h-full object-cover" />
                   ) : (
@@ -326,7 +287,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                             setCurrentPictureIndex(index)
                             setAutoRotate(false)
                           }}
-                          className={`flex-shrink-0 w-14 h-14 rounded-lg border-2 overflow-hidden transition ${
+                          className={`flex-shrink-0 w-10 h-10 xs:w-12 xs:h-12 sm:w-14 sm:h-14 rounded-lg border-2 overflow-hidden transition ${
                             currentPictureIndex === index ? 'border-blue' : 'border-border'
                           }`}
                         >
@@ -341,52 +302,56 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                   </div>
                 )}
 
-                {/* Upload Buttons */}
-                {isEditing && (
-                  <div className="flex gap-2 w-full">
-                    <label className="flex-1 cursor-pointer">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        className="hidden"
-                      />
-                      <div className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg hover:opacity-90 transition text-xs text-white font-500 cursor-pointer w-full" style={{ backgroundColor: '#fa9233' }}>
-                        <Upload size={14} />
-                        Edit Current
-                      </div>
-                    </label>
-                    <label className="flex-1 cursor-pointer">
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleAddPicture}
-                        className="hidden"
-                      />
-                      <div className="flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg hover:opacity-90 transition text-xs text-white font-500 cursor-pointer w-full" style={{ backgroundColor: '#0066cc' }}>
-                        <Upload size={14} />
-                        Add New
-                      </div>
-                    </label>
-                  </div>
-                )}
+                </motion.div>
 
+              {/* Action Buttons Section - Inside scrollable area */}
+              {isEditing && (
+                <div className="pt-1.5 xs:pt-2 sm:pt-2.5 md:pt-4 border-t border-border/50 space-y-1.5 xs:space-y-2 sm:space-y-2">
+                {/* Upload Buttons */}
+                <div className="flex gap-1.5 xs:gap-2 sm:gap-2 w-full">
+                  <label className="flex-1 cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      className="hidden"
+                    />
+                    <div className="flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-1.5 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-1.5 rounded-lg hover:opacity-90 transition text-xs text-white font-500 cursor-pointer w-full" style={{ backgroundColor: '#fa9233' }}>
+                      <Upload size={12} className="xs:w-3 xs:h-3 sm:w-4 sm:h-4" />
+                      <span>Edit Current</span>
+                    </div>
+                  </label>
+                  <label className="flex-1 cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAddPicture}
+                      className="hidden"
+                    />
+                    <div className="flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-1.5 px-2 xs:px-2.5 sm:px-3 py-1 xs:py-1.5 sm:py-1.5 rounded-lg hover:opacity-90 transition text-xs text-white font-500 cursor-pointer w-full" style={{ backgroundColor: '#0066cc' }}>
+                      <Upload size={12} className="xs:w-3 xs:h-3 sm:w-4 sm:h-4" />
+                      <span>Add New</span>
+                    </div>
+                  </label>
+                </div>
+                
                 {/* Delete Picture Button - Only show if editing and multiple pictures */}
-                {isEditing && pictures.length > 1 && (
+                {pictures.length > 1 && (
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleRemovePicture(currentPictureIndex)}
-                    className="w-full px-3 py-1.5 rounded-lg text-xs text-white font-500 hover:opacity-90 transition"
+                    className="w-full px-2 xs:px-3 sm:px-3 py-1 xs:py-1.5 sm:py-1.5 rounded-lg text-xs text-white font-500 hover:opacity-90 transition"
                     style={{ backgroundColor: '#dc2626' }}
                   >
                     Remove Picture
                   </motion.button>
                 )}
-              </motion.div>
+              </div>
+            )}
 
-              {/* Info Grid - Compact */}
-              <div className="grid grid-cols-1 gap-3">
+            {/* Info Grid - Compact */}
+            <div className="grid grid-cols-1 gap-1.5 xs:gap-2 sm:gap-3 pt-1.5 xs:pt-2 sm:pt-2.5 md:pt-3 border-t border-border/50">
                 {/* Title */}
                 <motion.div
                   className="space-y-1.5"
@@ -426,42 +391,12 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                         value={editData?.location || ''}
                         onChange={(e) => setEditData({ ...editData!, location: e.target.value })}
                         className="w-full text-xs bg-background border-2 border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-500"
-                        placeholder="Enter location or use Get Live Location"
+                        placeholder="Enter location"
                       />
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={handleGetLiveLocation}
-                        disabled={isGettingLocation}
-                        className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-xs text-white font-500 hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                        style={{ backgroundColor: '#0066cc' }}
-                      >
-                        {isGettingLocation ? (
-                          <>
-                            <Loader size={14} className="animate-spin" />
-                            <span>Getting Location...</span>
-                          </>
-                        ) : (
-                          <>
-                            <MapPin size={14} />
-                            <span>Get Live Location</span>
-                          </>
-                        )}
-                      </motion.button>
-                      {editData?.latitude && editData?.longitude && (
-                        <p className="text-xs text-muted bg-background/50 p-1.5 rounded-lg">
-                          Lat: {editData.latitude.toFixed(4)}, Long: {editData.longitude.toFixed(4)}
-                        </p>
-                      )}
                     </div>
                   ) : (
                     <div className="space-y-2">
                       <p className="text-xs text-foreground font-500 bg-background/50 p-1.5 rounded-lg">{displayShop.location}</p>
-                      {displayShop.latitude && displayShop.longitude && (
-                        <p className="text-xs text-muted bg-background/50 p-1.5 rounded-lg">
-                          Lat: {displayShop.latitude.toFixed(4)}, Long: {displayShop.longitude.toFixed(4)}
-                        </p>
-                      )}
                     </div>
                   )}
                 </motion.div>
@@ -469,7 +404,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Footer with Buttons */}
-            <div className="flex gap-1.5 sm:gap-2 md:gap-2 p-1.5 sm:p-2 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+            <div className="flex gap-1 xs:gap-1.5 sm:gap-2 md:gap-2 p-1.5 xs:p-2 sm:p-2.5 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
               {viewOnly ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}

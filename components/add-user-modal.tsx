@@ -129,11 +129,11 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
             onClick={onClose}
           >
             <div 
-              className="bg-background rounded-lg border border-border p-4 sm:p-6 shadow-xl w-full max-w-sm max-h-[calc(100vh-120px)] md:max-h-[85vh] overflow-y-auto"
+              className="bg-background rounded-lg border border-border shadow-xl w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[calc(100vh-60px)] sm:max-h-[calc(100vh-70px)] md:max-h-[85vh] flex flex-col overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between mb-4 sm:mb-6">
-                <h2 className="text-base sm:text-lg font-bold text-foreground pr-2">Add New User</h2>
+              <div className="flex items-center justify-between p-2 sm:p-3 md:p-4 border-b border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+                <h2 className="text-sm sm:text-base md:text-lg font-bold text-foreground">Add New User</h2>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
@@ -144,7 +144,8 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                 </motion.button>
               </div>
             
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
+                <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-3 md:space-y-4">
                 <div>
                   <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Full Name</label>
                   <input
@@ -329,8 +330,9 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
 
                   <p className="text-xs text-muted mt-2">{formData.interests.length}/5 selected</p>
                 </div>
+                </div>
 
-                <div className="flex gap-2 pt-4">
+                <div className="flex gap-2 p-2 sm:p-2.5 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}

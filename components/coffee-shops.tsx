@@ -501,10 +501,10 @@ export function CoffeeShops() {
                 onClick={() => setIsModalOpen(false)}
               >
                 <div
-                  className="bg-background rounded-lg border border-border p-4 sm:p-6 shadow-xl w-full max-w-sm max-h-[calc(100vh-120px)] md:max-h-[85vh] overflow-y-auto"
+                  className="bg-background rounded-lg border border-border flex flex-col overflow-hidden shadow-xl w-full max-w-sm max-h-[calc(100vh-60px)] sm:max-h-[calc(100vh-70px)] md:max-h-[85vh]"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <div className="flex items-center justify-between mb-4 sm:mb-6">
+                  <div className="flex items-center justify-between p-2 sm:p-3 md:p-4 border-b border-border flex-shrink-0">
                     <h2 className="text-base sm:text-lg font-bold text-foreground pr-2">Add New Shop</h2>
                     <motion.button
                       whileHover={{ scale: 1.1, rotate: 90 }}
@@ -516,13 +516,14 @@ export function CoffeeShops() {
                     </motion.button>
                   </div>
 
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      handleAddShop()
-                    }}
-                    className="space-y-4"
-                  >
+                  <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-3 md:space-y-4 min-h-0">
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault()
+                        handleAddShop()
+                      }}
+                      className="flex flex-col flex-1 min-h-0 space-y-3 md:space-y-4"
+                    >
                     {/* Image Upload with Multiple Pictures Support */}
                     <div>
                       <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Pictures Upload ({formData.pictures.length})</label>
@@ -650,38 +651,40 @@ export function CoffeeShops() {
                         )}
                       </div>
                     </div>
+                    </form>
+                  </div>
 
-                    <div className="flex gap-2 pt-4">
-                      <motion.button
-                        whileHover={formData.pictures.length === 0 ? {} : { scale: 1.02 }}
-                        whileTap={formData.pictures.length === 0 ? {} : { scale: 0.98 }}
-                        type="submit"
-                        disabled={formData.pictures.length === 0 || !formData.title || !formData.location || isUploading}
-                        className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
-                        style={{
-                          backgroundColor: '#fa9233',
-                          opacity: formData.pictures.length === 0 || !formData.title || !formData.location || isUploading ? 0.5 : 1,
-                          cursor: formData.pictures.length === 0 || !formData.title || !formData.location || isUploading ? 'not-allowed' : 'pointer'
-                        }}
-                      >
-                        {isUploading && <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-                        {isUploading ? 'Adding Shop...' : 'Add Shop'}
-                      </motion.button>
-                      <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        type="button"
-                        onClick={() => {
-                          setIsModalOpen(false)
-                          setFormData({ imageFile: null, title: '', location: '', imagePreview: '', pictures: [], latitude: 0, longitude: 0 })
-                        }}
-                        disabled={isUploading}
-                        className="flex-1 px-4 py-2.5 border-2 border-border text-foreground rounded-lg font-600 text-xs sm:text-sm hover:bg-surface transition-colors cursor-pointer disabled:opacity-50"
-                      >
-                        Cancel
-                      </motion.button>
-                    </div>
-                  </form>
+                  <div className="flex gap-2 p-2 sm:p-2.5 md:p-4 border-t border-border flex-shrink-0">
+                    <motion.button
+                      whileHover={formData.pictures.length === 0 ? {} : { scale: 1.02 }}
+                      whileTap={formData.pictures.length === 0 ? {} : { scale: 0.98 }}
+                      type="submit"
+                      disabled={formData.pictures.length === 0 || !formData.title || !formData.location || isUploading}
+                      onClick={handleAddShop}
+                      className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-xs sm:text-sm transition-all flex items-center justify-center gap-2"
+                      style={{
+                        backgroundColor: '#fa9233',
+                        opacity: formData.pictures.length === 0 || !formData.title || !formData.location || isUploading ? 0.5 : 1,
+                        cursor: formData.pictures.length === 0 || !formData.title || !formData.location || isUploading ? 'not-allowed' : 'pointer'
+                      }}
+                    >
+                      {isUploading && <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+                      {isUploading ? 'Adding Shop...' : 'Add Shop'}
+                    </motion.button>
+                    <motion.button
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      type="button"
+                      onClick={() => {
+                        setIsModalOpen(false)
+                        setFormData({ imageFile: null, title: '', location: '', imagePreview: '', pictures: [], latitude: 0, longitude: 0 })
+                      }}
+                      disabled={isUploading}
+                      className="flex-1 px-4 py-2.5 border-2 border-border text-foreground rounded-lg font-600 text-xs sm:text-sm hover:bg-surface transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      Cancel
+                    </motion.button>
+                  </div>
                 </div>
               </motion.div>
             </>
