@@ -129,11 +129,11 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
             onClick={onClose}
           >
             <div 
-              className="bg-background rounded-lg border border-border shadow-xl w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[calc(100vh-60px)] sm:max-h-[calc(100vh-70px)] md:max-h-[85vh] flex flex-col overflow-hidden"
+              className="bg-background rounded-lg border border-border shadow-xl w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[calc(100vh-40px)] sm:max-h-[calc(100vh-50px)] md:max-h-[75vh] flex flex-col overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between p-2 sm:p-3 md:p-4 border-b border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
-                <h2 className="text-sm sm:text-base md:text-lg font-bold text-foreground">Add New User</h2>
+              <div className="flex items-center justify-between p-1.5 sm:p-2 md:p-3 border-b border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+                <h2 className="text-xs sm:text-sm md:text-base font-bold text-foreground">Add New User</h2>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}
@@ -145,67 +145,67 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
               </div>
             
               <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
-                <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-3 md:space-y-4">
+                <div className="overflow-y-auto flex-1 p-1.5 sm:p-2 md:p-3 space-y-2 sm:space-y-2.5 md:space-y-3">
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Full Name</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Full Name</label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                     placeholder="e.g. John Doe"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Email Address</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Email Address</label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     required
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                     placeholder="e.g. john@example.com"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Password</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Password</label>
                   <input
                     type="password"
                     value={formData.password || ''}
                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     required
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                     placeholder="Enter password"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Username</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Username</label>
                   <input
                     type="text"
                     value={formData.username}
                     onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                     required
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                     placeholder="e.g. johndoe"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Age</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Age</label>
                   <input
                     type="number"
                     value={formData.age}
                     onChange={(e) => setFormData({ ...formData, age: parseInt(e.target.value) || 0 })}
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                     placeholder="e.g. 25"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Gender</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Gender</label>
                   <select
                     value={formData.gender}
                     onChange={(e) => setFormData({ ...formData, gender: e.target.value })}
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                   >
                     <option>Male</option>
                     <option>Female</option>
@@ -213,18 +213,18 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Bio</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Bio</label>
                   <textarea
                     value={formData.bio}
                     onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                    className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition resize-none"
+                    className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition resize-none"
                     placeholder="Enter bio"
-                    rows={3}
+                    rows={2}
                   />
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Location</label>
-                  <div className="space-y-2">
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Location</label>
+                  <div className="space-y-1">
                     <div className="relative">
                       <input
                         type="text"
@@ -232,7 +232,7 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                         onChange={handleLocationChange}
                         onFocus={() => setShowLocationSuggestions(true)}
                         placeholder="Search location (e.g., Tokyo, New York)..."
-                        className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                        className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
                       />
                       
                       {isSearchingLocation && (
@@ -267,11 +267,11 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Interests (Max 5)</label>
+                  <label className="block text-xs sm:text-xs md:text-sm font-600 text-foreground mb-1 uppercase tracking-wide text-[11px]">Interests (Max 5)</label>
                   
                   {/* Selected Interests */}
                   {formData.interests.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    <div className="flex flex-wrap gap-1.5 mb-2">
                       {formData.interests.map((interest) => (
                         <div
                           key={interest}
@@ -299,7 +299,7 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                       onChange={(e) => setInterestInput(e.target.value)}
                       placeholder="Type to search interests..."
                       disabled={formData.interests.length >= 5}
-                      className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition disabled:opacity-50"
+                      className="w-full px-2.5 py-1.5 border-2 border-border rounded-lg text-xs sm:text-xs md:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition disabled:opacity-50"
                     />
 
                     {/* Suggestions Dropdown */}
@@ -332,12 +332,12 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                 </div>
                 </div>
 
-                <div className="flex gap-2 p-2 sm:p-2.5 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+                <div className="flex gap-1.5 p-1.5 sm:p-2 md:p-3 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-xs sm:text-sm hover:opacity-90 transition-colors cursor-pointer"
+                    className="flex-1 px-3 py-1.5 text-white rounded-lg font-600 text-xs sm:text-xs md:text-sm hover:opacity-90 transition-colors cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     Add User
@@ -347,7 +347,7 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                     whileTap={{ scale: 0.98 }}
                     type="button"
                     onClick={onClose}
-                    className="flex-1 px-4 py-2.5 border-2 border-border text-foreground rounded-lg font-600 text-xs sm:text-sm hover:bg-surface transition-colors cursor-pointer"
+                    className="flex-1 px-3 py-1.5 border-2 border-border text-foreground rounded-lg font-600 text-xs sm:text-xs md:text-sm hover:bg-surface transition-colors cursor-pointer"
                   >
                     Cancel
                   </motion.button>
