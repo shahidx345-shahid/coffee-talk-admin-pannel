@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Edit2, Save } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface Interest {
   id: string
@@ -15,11 +15,19 @@ interface InterestOverlayProps {
   isOpen: boolean
   onClose: () => void
   onEdit?: (interest: Interest) => void
+  viewOnly?: boolean
 }
 
-export function InterestOverlay({ interest, isOpen, onClose, onEdit }: InterestOverlayProps) {
-  const [isEditing, setIsEditing] = useState(false)
+export function InterestOverlay({ interest, isOpen, onClose, onEdit, viewOnly = false }: InterestOverlayProps) {
+  const [isEditing, setIsEditing] = useState(!viewOnly)
   const [editData, setEditData] = useState<Interest | null>(null)
+
+  useEffect(() => {
+    if (isOpen && interest) {
+      setEditData(interest)
+      setIsEditing(!viewOnly)
+    }
+  }, [isOpen, interest, viewOnly])
 
   if (!interest) return null
 
@@ -30,17 +38,20 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit }: InterestO
     setEditData(interest)
   }
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (editData && onEdit) {
+      // Simply pass the data to parent component which handles Firebase
       onEdit(editData)
       setIsEditing(false)
       setEditData(null)
+      onClose()
     }
   }
 
   const handleCancel = () => {
     setIsEditing(false)
     setEditData(null)
+    onClose()
   }
 
   return (
@@ -86,7 +97,7 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit }: InterestO
             {/* Content */}
             <div className="overflow-y-auto flex-1 p-3 md:p-4 space-y-4">
               {/* Interest Name Section */}
-              <motion.div 
+              <motion.div
                 className="space-y-1.5 pb-3 border-b border-border/50"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -109,7 +120,16 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit }: InterestO
 
             {/* Footer with Buttons */}
             <div className="flex gap-2 p-3 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
-              {isEditing ? (
+              {viewOnly ? (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={onClose}
+                  className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all cursor-pointer"
+                >
+                  Close
+                </motion.button>
+              ) : isEditing ? (
                 <>
                   <motion.button
                     whileHover={{ scale: 1.02 }}

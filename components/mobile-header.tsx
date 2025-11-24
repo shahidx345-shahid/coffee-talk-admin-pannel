@@ -1,15 +1,15 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { Menu, X, Users, Coffee, Heart } from 'lucide-react'
+import { Menu, X, Users, Coffee, Heart, LogOut, Calendar } from 'lucide-react'
 import { useState } from 'react'
 
 interface MobileHeaderProps {
   activeSection: string
   setActiveSection: (section: string) => void
+  onLogout?: () => void
 }
 
-export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderProps) {
+export function MobileHeader({ activeSection, setActiveSection, onLogout }: MobileHeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string | null>(null)
 
@@ -17,111 +17,104 @@ export function MobileHeader({ activeSection, setActiveSection }: MobileHeaderPr
     { id: 'users', label: 'User management', icon: Users },
     { id: 'shops', label: 'Coffee Shops', icon: Coffee },
     { id: 'interests', label: 'Interests', icon: Heart },
+    { id: 'events', label: 'Events', icon: Calendar },
   ]
+
+  const handleLogout = () => {
+    setIsOpen(false)
+    onLogout?.()
+  }
 
   return (
     <>
       {/* Mobile Header */}
-      <motion.header 
+      <header 
         className="md:hidden fixed top-0 left-0 right-0 bg-background border-b border-border z-50"
-        initial={{ y: -60 }}
-        animate={{ y: 0 }}
       >
         <div className="flex items-center justify-between px-4 py-4">
           {/* Hamburger Button */}
-          <motion.button
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 rounded-lg hover:bg-surface transition-colors cursor-pointer"
-            whileTap={{ scale: 0.95 }}
-            whileHover={{ 
-              backgroundColor: 'rgba(250, 146, 51, 0.1)',
-              
+            style={{ 
+              transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+              transitionDuration: '300ms'
             }}
           >
-            <motion.div
-              animate={{ rotate: isOpen ? 90 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </motion.div>
-          </motion.button>
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
 
           {/* Logo and Title */}
           <div className="flex items-center gap-2">
-            <motion.div 
+            <div 
               className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm"
-              animate={{ scale: isOpen ? 1.1 : 1 }}
-              whileHover={{ scale: 1.2 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
               style={{ 
                 backgroundColor: '#03a3ec'
               }}
             >
               ☕
-            </motion.div>
+            </div>
             <span className="font-semibold text-sm">Coffee Admin</span>
           </div>
 
-          {/* Placeholder for user avatar or other elements */}
-          <div className="w-8" />
+          {/* Logout Button - Mobile Right */}
+          <button
+            onClick={handleLogout}
+            className="p-2 rounded-lg hover:bg-surface transition-colors cursor-pointer"
+            title="Logout"
+          >
+            <LogOut size={20} style={{ color: '#ef4444' }} />
+          </button>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile Sidebar Menu */}
-      <motion.div
-        className="md:hidden fixed top-16 left-0 right-0 bg-surface border-b border-border z-50 shadow-lg"
-        initial={{ height: 0, opacity: 0 }}
-        animate={{ 
-          height: isOpen ? 'auto' : 0, 
-          opacity: isOpen ? 1 : 0 
+      <div
+        className="md:hidden fixed top-16 left-0 right-0 bg-surface border-b border-border z-50 shadow-lg transition-all"
+        style={{ 
+          display: isOpen ? 'block' : 'none',
+          opacity: isOpen ? 1 : 0,
+          transitionDuration: '300ms',
+          maxHeight: 'calc(100vh - 64px)',
+          overflowY: 'auto'
         }}
-        transition={{ duration: 0.3 }}
-        style={{ overflow: 'hidden' }}
       >
         <nav className="flex flex-col p-4 space-y-2">
-          {navItems.map((item, idx) => {
+          {navItems.map((item) => {
             const Icon = item.icon
-            const isActive = selectedItem === item.id
+            const isActive = activeSection === item.id
 
             return (
-              <motion.button
+              <button
                 key={item.id}
                 onClick={() => {
                   setSelectedItem(item.id)
                   setActiveSection(item.id)
                   setIsOpen(false)
                 }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all ${
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
                   isActive
                     ? 'bg-[#fa9233] text-white'
                     : 'text-foreground hover:bg-background'
                 }`}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: idx * 0.1 }}
-                whileTap={{ scale: 0.98 }}
-                whileHover={{
-                  backgroundColor: '#fa9233',
-                  color: 'white',
-                  scale: 1.02
-                }}
               >
                 <Icon size={18} />
                 <span>{item.label}</span>
-              </motion.button>
+              </button>
             )
           })}
         </nav>
-      </motion.div>
+      </div>
 
       {/* Backdrop */}
-      <motion.div
-        className="md:hidden fixed inset-0 bg-black/30 z-30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isOpen ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+      <div
+        className="md:hidden fixed inset-0 bg-black/30 z-30 transition-all"
         onClick={() => setIsOpen(false)}
-        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+        style={{ 
+          opacity: isOpen ? 1 : 0,
+          pointerEvents: isOpen ? 'auto' : 'none',
+          transitionDuration: '300ms'
+        }}
       />
     </>
   )

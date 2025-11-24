@@ -9,6 +9,7 @@ interface Shop {
   title: string
   name: string
   location: string
+  imageUrl?: string
 }
 
 interface ShopDeleteOverlayProps {
@@ -25,6 +26,14 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
   const handleConfirm = () => {
     onConfirm(shop.id)
     onClose()
+  }
+
+  // Function to check if the picture is a valid image URL
+  const isImageUrl = (url: string) => {
+    return url.startsWith('data:') || 
+           url.startsWith('http://') || 
+           url.startsWith('https://') ||
+           url.includes('cloudinary')
   }
 
   return (
@@ -93,13 +102,17 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
               >
                 <p className="text-xs font-700 text-muted uppercase tracking-wider">Shop to delete</p>
                 
-                {/* Picture and Title */}
+                {/* Picture and Title - SHOW REAL CLOUDINARY IMAGE */}
                 <div className="flex items-center gap-2.5">
                   <div className="w-12 h-12 rounded-lg bg-surface border-2 border-border flex items-center justify-center overflow-hidden flex-shrink-0">
-                    {shop.picture && shop.picture.startsWith('data:') ? (
-                      <img src={shop.picture} alt={shop.title} className="w-full h-full object-cover" />
+                    {shop.imageUrl ? (
+                      <img 
+                        src={shop.imageUrl} 
+                        alt={shop.title} 
+                        className="w-full h-full object-cover"
+                      />
                     ) : (
-                      <span className="text-lg">{shop.picture}</span>
+                      <span className="text-lg">{shop.picture || '☕'}</span>
                     )}
                   </div>
                   <div className="min-w-0">

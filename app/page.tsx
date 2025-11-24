@@ -1,35 +1,53 @@
 'use client'
 
-import { useState } from 'react'
-import { Sidebar } from '@/components/sidebar'
-import { MobileHeader } from '@/components/mobile-header'
-import { UserManagement } from '@/components/user-management'
-import { CoffeeShops } from '@/components/coffee-shops'
-import { InterestManagement } from '@/components/interest-management'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { LoginPage } from '@/components/login-page'
+import { motion } from 'framer-motion'
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('users')
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
-  return (
-    <div className="flex h-screen bg-background overflow-hidden">
-      <MobileHeader activeSection={activeSection} setActiveSection={setActiveSection} />
+  useEffect(() => {
+    const token = localStorage.getItem('adminToken')
 
-      {/* Desktop sidebar - hidden on mobile */}
-      <div className="hidden md:flex">
-        <Sidebar
-          activeSection={activeSection}
-          setActiveSection={setActiveSection}
+    if (token) {
+      setIsAuthenticated(true)
+      // Redirect to dashboard/users
+      router.push('/dashboard/users')
+      return
+    }
+
+    setIsLoading(false)
+  }, [router])
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen bg-background items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="w-12 h-12 border-4 border-border border-t-blue rounded-full"
         />
       </div>
+    )
+  }
 
-      {/* Main content - adjusted for mobile header */}
-      <main className="flex-1 overflow-hidden flex flex-col w-full pt-16 md:pt-0">
-        <div className="flex-1 overflow-auto">
-          {activeSection === 'users' && <UserManagement />}
-          {activeSection === 'shops' && <CoffeeShops />}
-          {activeSection === 'interests' && <InterestManagement />}
-        </div>
-      </main>
-    </div>
-  )
+  // If authenticated, show loading (will redirect)
+  if (isAuthenticated) {
+    return (
+      <div className="flex h-screen bg-background items-center justify-center">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+          className="w-12 h-12 border-4 border-border border-t-blue rounded-full"
+        />
+      </div>
+    )
+  }
+
+  // Not authenticated, show login
+  return <LoginPage />
 }

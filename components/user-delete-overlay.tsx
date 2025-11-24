@@ -8,7 +8,6 @@ interface User {
   name: string
   email: string
   avatar: string
-  lastActive: string
   dateAdded: string
 }
 
@@ -106,11 +105,7 @@ export function UserDeleteOverlay({ user, isOpen, onClose, onConfirm, isLoading 
                 </div>
 
                 {/* Additional Details */}
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-border/50">
-                  <div>
-                    <p className="text-xs font-600 text-muted uppercase tracking-wider">Last Active</p>
-                    <p className="text-xs font-500 text-foreground mt-1">{user.lastActive}</p>
-                  </div>
+                <div className="grid grid-cols-1 gap-2 pt-2 border-t border-border/50">
                   <div>
                     <p className="text-xs font-600 text-muted uppercase tracking-wider">Date Added</p>
                     <p className="text-xs font-500 text-foreground mt-1">{user.dateAdded}</p>
