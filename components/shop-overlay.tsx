@@ -248,8 +248,8 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-100px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
           >
             {/* Header */}
-            <div className="relative p-2.5 md:p-4 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
-              <div className="flex items-center justify-between gap-3">
+            <div className="relative p-2 md:p-4 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
+              <div className="flex items-center justify-between gap-2 md:gap-3">
                 <div className="min-w-0 flex-1">
                   <h2 className="text-base md:text-lg font-700 text-foreground truncate">
                     {isEditing ? 'Edit Shop' : 'Shop Details'}
@@ -268,10 +268,10 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto flex-1 p-2.5 md:p-4 space-y-3">
+            <div className="overflow-y-auto flex-1 p-2 md:p-4 space-y-2 md:space-y-3">
               {/* Picture Section with Auto-Rotate */}
               <motion.div
-                className="flex flex-col items-center gap-3 pb-3 border-b border-border/50"
+                className="flex flex-col items-center gap-2 md:gap-3 pb-2 md:pb-3 border-b border-border/50"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -469,7 +469,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Footer with Buttons */}
-            <div className="flex gap-2 p-2.5 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+            <div className="flex gap-2 md:gap-2 p-2 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
               {viewOnly ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}

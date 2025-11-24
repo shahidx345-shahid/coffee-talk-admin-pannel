@@ -68,8 +68,8 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-100px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
           >
             {/* Header */}
-            <div className="relative p-2.5 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
-              <div className="flex items-center justify-between gap-4">
+            <div className="relative p-2 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
+              <div className="flex items-center justify-between gap-2 md:gap-4">
                 <div className="min-w-0 flex-1">
                   {viewOnly ? (
                     <h2 className="text-lg md:text-xl font-800 text-foreground truncate tracking-tight">
@@ -96,10 +96,10 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto flex-1 p-2.5 md:p-4 space-y-3">
+            <div className="overflow-y-auto flex-1 p-2 md:p-4 space-y-2 md:space-y-3">
               {/* Avatar and Name Section */}
               <motion.div
-                className="flex flex-col items-center gap-4 pb-4 border-b border-border/50"
+                className="flex flex-col items-center gap-2 md:gap-4 pb-3 md:pb-4 border-b border-border/50"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -124,7 +124,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
               </motion.div>
 
               {/* Info Grid - Compact */}
-              <div className="grid grid-cols-1 gap-4">
+              <div className="grid grid-cols-1 gap-2 md:gap-4">
                 {/* Email */}
                 <motion.div
                   className="space-y-2"
@@ -225,26 +225,11 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                   </motion.div>
                 )}
 
-                {/* Date Added */}
-                {displayUser.dateAdded && (
-                  <motion.div
-                    className="space-y-2"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <div className="flex items-center gap-2">
-                      <Calendar size={16} className="text-blue flex-shrink-0" />
-                      <label className="text-sm font-700 text-muted uppercase tracking-wider">Date Added</label>
-                    </div>
-                    <p className="text-sm text-foreground font-500 bg-background/50 p-2.5 rounded-lg">{displayUser.dateAdded}</p>
-                  </motion.div>
-                )}
               </div>
             </div>
 
             {/* Footer with Buttons */}
-            <div className="flex gap-3 p-2.5 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+            <div className="flex gap-2 md:gap-3 p-2 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
               {viewOnly ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}
