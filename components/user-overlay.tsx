@@ -65,10 +65,10 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-120px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-100px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
           >
             {/* Header */}
-            <div className="relative p-4 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
+            <div className="relative p-2.5 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
               <div className="flex items-center justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   {viewOnly ? (
@@ -96,7 +96,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto flex-1 p-3 md:p-4 space-y-4">
+            <div className="overflow-y-auto flex-1 p-2.5 md:p-4 space-y-3">
               {/* Avatar and Name Section */}
               <motion.div
                 className="flex flex-col items-center gap-4 pb-4 border-b border-border/50"
@@ -244,7 +244,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Footer with Buttons */}
-            <div className="flex gap-3 p-4 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+            <div className="flex gap-3 p-2.5 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
               {viewOnly ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}
