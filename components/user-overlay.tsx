@@ -108,85 +108,122 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                   {displayUser.avatar}
                 </div>
                 <div className="w-full text-center">
-                  {isEditing && !viewOnly ? (
-                    <input
-                      type="text"
-                      value={editData?.name || ''}
-                      onChange={(e) => setEditData({ ...editData!, name: e.target.value })}
-                      className="w-full text-xs xs:text-sm sm:text-base md:text-lg font-800 bg-background border-2 border-blue/30 rounded-lg px-1.5 xs:px-2 sm:px-3 py-1 xs:py-1.5 sm:py-2 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all text-center tracking-tight"
-                      placeholder="Enter name"
-                    />
-                  ) : (
-                    <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl font-800 text-foreground tracking-tight">{displayUser.name}</h3>
-                  )}
+                  <h3 className="text-base xs:text-lg sm:text-xl md:text-2xl font-800 text-foreground tracking-tight">{displayUser.name}</h3>
                   <p className="text-xs xs:text-sm text-muted font-500 mt-0.5 xs:mt-1">Account Holder</p>
                 </div>
               </motion.div>
 
-              {/* Info Grid - Compact */}
-              <div className="grid grid-cols-1 gap-1 xs:gap-1.5 sm:gap-2 md:gap-3">
-                {/* Email */}
-                <motion.div
-                  className="space-y-1 xs:space-y-1.5 sm:space-y-2"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.15 }}
-                >
-                  <div className="flex items-center gap-1.5 xs:gap-2">
-                    <Mail size={14} className="xs:w-4 xs:h-4 text-blue flex-shrink-0" />
-                    <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Email</label>
-                  </div>
-                  <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg break-all">{displayUser.email}</p>
-                </motion.div>
-
-                {/* Username */}
-                {displayUser.username && (
+              {/* Info Grid - Compact - Only show if not editing */}
+              {!isEditing && (
+                <div className="grid grid-cols-1 gap-1 xs:gap-1.5 sm:gap-2 md:gap-3">
+                  {/* Email */}
                   <motion.div
                     className="space-y-1 xs:space-y-1.5 sm:space-y-2"
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
+                    transition={{ delay: 0.15 }}
                   >
-                    <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Username</label>
-                    <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg">{displayUser.username}</p>
-                  </motion.div>
-                )}
-
-                {/* Age - Only show in edit mode */}
-                {!viewOnly && displayUser.age && (
-                  <motion.div
-                    className="space-y-1 xs:space-y-1.5 sm:space-y-2"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.25 }}
-                  >
-                    <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Age</label>
-                    <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg">{displayUser.age}</p>
-                  </motion.div>
-                )}
-
-
-
-                {/* Interests */}
-                {displayUser.interests && displayUser.interests.length > 0 && (
-                  <motion.div
-                    className="space-y-1 xs:space-y-1.5 sm:space-y-2"
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.4 }}
-                  >
-                    <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Interests</label>
-                    <div className="flex flex-wrap gap-1 xs:gap-1.5 sm:gap-2 p-1.5 xs:p-2 sm:p-2.5 bg-background/50 rounded-lg">
-                      {displayUser.interests.map((interest, idx) => (
-                        <span key={idx} className="px-2 xs:px-2.5 sm:px-3 py-0.5 xs:py-1 bg-blue/20 text-blue text-xs font-600 rounded-full">
-                          {interest}
-                        </span>
-                      ))}
+                    <div className="flex items-center gap-1.5 xs:gap-2">
+                      <Mail size={14} className="xs:w-4 xs:h-4 text-blue flex-shrink-0" />
+                      <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Email</label>
                     </div>
+                    <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg break-all">{displayUser.email}</p>
                   </motion.div>
-                )}
 
-              </div>
+                  {/* Username */}
+                  {displayUser.username && (
+                    <motion.div
+                      className="space-y-1 xs:space-y-1.5 sm:space-y-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Username</label>
+                      <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg">{displayUser.username}</p>
+                    </motion.div>
+                  )}
+
+                  {/* Gender */}
+                  {displayUser.gender && (
+                    <motion.div
+                      className="space-y-1 xs:space-y-1.5 sm:space-y-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.25 }}
+                    >
+                      <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Gender</label>
+                      <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg">{displayUser.gender}</p>
+                    </motion.div>
+                  )}
+
+                  {/* Age */}
+                  {displayUser.age && (
+                    <motion.div
+                      className="space-y-1 xs:space-y-1.5 sm:space-y-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Age</label>
+                      <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg">{displayUser.age}</p>
+                    </motion.div>
+                  )}
+
+                  {/* Bio */}
+                  {displayUser.bio && (
+                    <motion.div
+                      className="space-y-1 xs:space-y-1.5 sm:space-y-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.35 }}
+                    >
+                      <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Bio</label>
+                      <p className="text-xs xs:text-sm text-foreground font-500 bg-background/50 p-1.5 xs:p-2 sm:p-2.5 rounded-lg break-words">{displayUser.bio}</p>
+                    </motion.div>
+                  )}
+
+                  {/* Interests */}
+                  {displayUser.interests && displayUser.interests.length > 0 && (
+                    <motion.div
+                      className="space-y-1 xs:space-y-1.5 sm:space-y-2"
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Interests</label>
+                      <div className="flex flex-wrap gap-1 xs:gap-1.5 sm:gap-2 p-1.5 xs:p-2 sm:p-2.5 bg-background/50 rounded-lg">
+                        {displayUser.interests.map((interest, idx) => (
+                          <span key={idx} className="px-2 xs:px-2.5 sm:px-3 py-0.5 xs:py-1 bg-blue/20 text-blue text-xs font-600 rounded-full">
+                            {interest}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                </div>
+              )}
+              
+              {/* Edit Mode - Only Name Field */}
+              {isEditing && !viewOnly && (
+                <div className="py-2 xs:py-3 sm:py-4 px-0">
+                  <motion.div
+                    className="space-y-1.5"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.15 }}
+                  >
+                    <label className="text-xs xs:text-sm font-700 text-muted uppercase tracking-wider">Name</label>
+                    <input
+                      type="text"
+                      value={editData?.name || ''}
+                      onChange={(e) => setEditData({ ...editData!, name: e.target.value })}
+                      className="w-full text-xs xs:text-sm bg-background border-2 border-blue/30 rounded-lg px-2 xs:px-3 py-1.5 xs:py-2 sm:py-2.5 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-500"
+                      placeholder="Enter name"
+                    />
+                  </motion.div>
+                </div>
+              )}
             </div>
 
             {/* Footer with Buttons */}
@@ -196,7 +233,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onClose}
-                  className="flex-1 px-1.5 xs:px-2 sm:px-3 md:px-4 py-1 xs:py-1.5 sm:py-2 md:py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
+                  className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all cursor-pointer"
                 >
                   Close
                 </motion.button>
@@ -206,7 +243,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCancel}
-                    className="flex-1 px-1.5 xs:px-2 sm:px-3 md:px-4 py-1 xs:py-1.5 sm:py-2 md:py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
+                    className="flex-1 px-2 md:px-3 py-2 border-2 border-border rounded-lg text-xs md:text-sm font-600 text-foreground hover:bg-background hover:border-muted transition-all cursor-pointer"
                   >
                     Cancel
                   </motion.button>
@@ -214,10 +251,10 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="flex-1 px-1.5 xs:px-2 sm:px-3 md:px-4 py-1 xs:py-1.5 sm:py-2 md:py-2.5 text-white rounded-lg text-xs sm:text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-0.5 xs:gap-1 sm:gap-2 hover:opacity-90 tracking-tight cursor-pointer"
+                    className="flex-1 px-2 md:px-3 py-2 text-white rounded-lg text-xs md:text-sm font-600 hover:shadow-lg transition-all flex items-center justify-center gap-1 hover:opacity-90 cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
-                    <Save size={12} className="xs:w-3 xs:h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                    <Save size={14} />
                     <span>Save</span>
                   </motion.button>
                 </>

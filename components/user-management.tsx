@@ -179,11 +179,8 @@ export function UserManagement() {
               <table className="w-full text-xs md:text-sm min-w-max md:min-w-full">
                 <thead>
                   <tr className="border-b border-border bg-surface">
-                    <th className="px-3 md:px-4 py-3 text-left">
-                      <input type="checkbox" className="rounded" />
-                    </th>
                     <th className="px-3 md:px-4 py-3 text-left font-600 text-foreground">User name</th>
-                    <th className="px-3 md:px-4 py-3 text-left font-600 text-foreground hidden md:table-cell">Date added</th>
+                    <th className="px-3 md:px-4 py-3 text-left font-600 text-foreground">Date added</th>
                     <th className="px-3 md:px-4 py-3 text-center font-600 text-foreground">Actions</th>
                   </tr>
                 </thead>
@@ -197,9 +194,6 @@ export function UserManagement() {
                       className="border-b border-border hover:bg-surface/50 transition"
                     >
                       <td className="px-3 md:px-4 py-4">
-                        <input type="checkbox" className="rounded" />
-                      </td>
-                      <td className="px-3 md:px-4 py-4">
                         <div className="flex items-center gap-2 md:gap-3">
                           <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-surface flex items-center justify-center text-sm md:text-lg flex-shrink-0">
                             {user.avatar}
@@ -210,7 +204,7 @@ export function UserManagement() {
                           </div>
                         </div>
                       </td>
-                      <td className="px-3 md:px-4 py-4 text-sm text-foreground hidden md:table-cell">{user.dateAdded}</td>
+                      <td className="px-3 md:px-4 py-4 text-xs md:text-sm text-foreground">{user.dateAdded}</td>
                       <td className="px-3 md:px-4 py-4">
                         <div className="flex items-center justify-center gap-1 md:gap-2">
                           <motion.button

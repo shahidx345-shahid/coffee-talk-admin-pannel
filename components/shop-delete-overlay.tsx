@@ -30,10 +30,10 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
 
   // Function to check if the picture is a valid image URL
   const isImageUrl = (url: string) => {
-    return url.startsWith('data:') || 
-           url.startsWith('http://') || 
-           url.startsWith('https://') ||
-           url.includes('cloudinary')
+    return url.startsWith('data:') ||
+      url.startsWith('http://') ||
+      url.startsWith('https://') ||
+      url.includes('cloudinary')
   }
 
   return (
@@ -80,7 +80,7 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
             {/* Content */}
             <div className="overflow-y-auto flex-1 p-3 md:p-4 space-y-3">
               {/* Warning Section */}
-              <motion.div 
+              <motion.div
                 className="flex items-start gap-3 p-3 bg-red-50 border-2 border-red-200 rounded-lg"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -101,14 +101,14 @@ export function ShopDeleteOverlay({ shop, isOpen, onClose, onConfirm, isLoading 
                 transition={{ delay: 0.2 }}
               >
                 <p className="text-xs font-700 text-muted uppercase tracking-wider">Shop to delete</p>
-                
+
                 {/* Picture and Title - SHOW REAL CLOUDINARY IMAGE */}
                 <div className="flex items-center gap-2.5">
                   <div className="w-12 h-12 rounded-lg bg-surface border-2 border-border flex items-center justify-center overflow-hidden flex-shrink-0">
                     {shop.imageUrl ? (
-                      <img 
-                        src={shop.imageUrl} 
-                        alt={shop.title} 
+                      <img
+                        src={shop.imageUrl}
+                        alt={shop.title}
                         className="w-full h-full object-cover"
                       />
                     ) : (

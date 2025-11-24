@@ -13,10 +13,10 @@ import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
 
 const formatDate = (timestamp: number) => {
   if (!timestamp) return 'N/A'
-  return new Date(timestamp).toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
+  return new Date(timestamp).toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
   })
 }
 
@@ -31,7 +31,7 @@ export function EventManagement() {
         const snapshot = await getDocs(collection(db, 'events'))
         console.log('Events collection snapshot:', snapshot)
         console.log('Number of events:', snapshot.docs.length)
-        
+
         const mappedEvents: Event[] = snapshot.docs.map((doc) => {
           const data = doc.data()
           console.log('Event data from Firebase:', data)
@@ -70,7 +70,7 @@ export function EventManagement() {
 
 
 
-  
+
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
   const [isEventOverlayOpen, setIsEventOverlayOpen] = useState(false)

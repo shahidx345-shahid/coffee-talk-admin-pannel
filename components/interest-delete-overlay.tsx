@@ -69,7 +69,7 @@ export function InterestDeleteOverlay({ interest, isOpen, onClose, onConfirm, is
             {/* Content */}
             <div className="overflow-y-auto flex-1 p-3 md:p-4 space-y-3">
               {/* Warning Section */}
-              <motion.div 
+              <motion.div
                 className="flex items-start gap-3 p-3 bg-red-50 border-2 border-red-200 rounded-lg"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ export function InterestDeleteOverlay({ interest, isOpen, onClose, onConfirm, is
                 transition={{ delay: 0.2 }}
               >
                 <p className="text-xs font-700 text-muted uppercase tracking-wider">Interest to delete</p>
-                
+
                 {/* Interest Name and Details */}
                 <div>
                   <p className="text-sm font-700 text-foreground break-all">{interest.name}</p>

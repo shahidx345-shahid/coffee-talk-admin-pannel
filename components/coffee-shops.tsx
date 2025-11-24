@@ -32,12 +32,12 @@ export function CoffeeShops() {
         const shops = await coffeeShopService.getAllShops()
         const mappedShops: Shop[] = shops.map((shop: any) => ({
           id: shop.id,
-          picture: shop.imageUrl || '',
+          picture: shop.pictures?.[0] || shop.imageUrl || '',
           pictures: shop.pictures || [shop.imageUrl || ''],
           title: shop.name,
           name: shop.name,
           location: shop.address,
-          imageUrl: shop.imageUrl,
+          imageUrl: shop.pictures?.[0] || shop.imageUrl || '',
           latitude: shop.latitude,
           longitude: shop.longitude
         }))
@@ -372,8 +372,8 @@ export function CoffeeShops() {
                               </label>
                             ) : (
                               <div className="w-12 h-12 bg-surface rounded-lg overflow-hidden flex items-center justify-center">
-                                {shop.imageUrl ? (
-                                  <img src={shop.imageUrl} alt={shop.name} className="w-full h-full object-cover" />
+                                {shop.picture ? (
+                                  <img src={shop.picture} alt={shop.name} className="w-full h-full object-cover" />
                                 ) : (
                                   <div className="w-full h-full bg-surface flex items-center justify-center text-muted text-xs">No Image</div>
                                 )}

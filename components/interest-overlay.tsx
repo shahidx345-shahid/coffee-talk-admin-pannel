@@ -75,7 +75,7 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit, viewOnly = 
             className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[85vh] flex flex-col"
           >
             {/* Header */}
-            <div className="relative p-3 md:p-4 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
+            <div className="relative p-1.5 xs:p-2 sm:p-3 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0 flex-1">
                   <h2 className="text-base md:text-lg font-700 text-foreground truncate">
@@ -95,7 +95,7 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit, viewOnly = 
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto flex-1 p-3 md:p-4 space-y-4">
+            <div className="overflow-y-auto flex-1 p-1.5 xs:p-2 sm:p-2.5 md:p-4 space-y-1.5 xs:space-y-2 sm:space-y-2.5 md:space-y-3 min-h-0">
               {/* Interest Name Section */}
               <motion.div
                 className="space-y-1.5 pb-3 border-b border-border/50"
@@ -119,7 +119,7 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit, viewOnly = 
             </div>
 
             {/* Footer with Buttons */}
-            <div className="flex gap-2 p-3 md:p-4 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+            <div className="flex gap-1 xs:gap-1.5 sm:gap-2 md:gap-3 p-1.5 xs:p-2 sm:p-2.5 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
               {viewOnly ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}

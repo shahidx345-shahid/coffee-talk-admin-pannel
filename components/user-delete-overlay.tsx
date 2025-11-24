@@ -71,7 +71,7 @@ export function UserDeleteOverlay({ user, isOpen, onClose, onConfirm, isLoading 
             {/* Content */}
             <div className="overflow-y-auto flex-1 p-4 md:p-5 space-y-4">
               {/* Warning Section */}
-              <motion.div 
+              <motion.div
                 className="flex items-start gap-3 p-4 bg-red-50 border-2 border-red-200 rounded-lg"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -92,7 +92,7 @@ export function UserDeleteOverlay({ user, isOpen, onClose, onConfirm, isLoading 
                 transition={{ delay: 0.2 }}
               >
                 <p className="text-xs font-700 text-muted uppercase tracking-wider">User to delete</p>
-                
+
                 {/* Avatar and Name */}
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-color-blue to-color-accent flex items-center justify-center text-lg flex-shrink-0 shadow-md">
