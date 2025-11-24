@@ -65,7 +65,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-xs sm:max-w-sm md:max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-90px)] sm:max-h-[calc(100vh-100px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-xs sm:max-w-sm md:max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-60px)] sm:max-h-[calc(100vh-70px)] md:max-h-[90vh] flex flex-col mt-16 md:mt-0"
           >
             {/* Header */}
             <div className="relative p-2 sm:p-3 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
@@ -96,7 +96,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-2 sm:space-y-2.5 md:space-y-3">
+            <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-2 sm:space-y-2.5 md:space-y-3 min-h-0">
               {/* Avatar and Name Section */}
               <motion.div
                 className="flex flex-col items-center gap-2 sm:gap-2.5 md:gap-4 pb-2 sm:pb-2.5 md:pb-4 border-b border-border/50"

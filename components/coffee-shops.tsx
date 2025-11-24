@@ -643,27 +643,6 @@ export function CoffeeShops() {
                             </div>
                           )}
                         </div>
-                        <motion.button
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                          type="button"
-                          onClick={handleGetLiveLocationForAddShop}
-                          disabled={isGettingLocation || isUploading}
-                          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm text-white font-500 hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                          style={{ backgroundColor: '#0066cc' }}
-                        >
-                          {isGettingLocation ? (
-                            <>
-                              <Loader size={16} className="animate-spin" />
-                              <span>Getting Location...</span>
-                            </>
-                          ) : (
-                            <>
-                              <MapPin size={16} />
-                              <span>Get Live Location</span>
-                            </>
-                          )}
-                        </motion.button>
                         {formData.latitude !== 0 && formData.longitude !== 0 && (
                           <p className="text-xs text-muted bg-surface/50 p-2 rounded-lg">
                             Lat: {formData.latitude.toFixed(4)}, Long: {formData.longitude.toFixed(4)}
