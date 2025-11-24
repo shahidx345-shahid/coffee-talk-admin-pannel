@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { X } from 'lucide-react'
+import { X, MapPin, Loader } from 'lucide-react'
 import { useState } from 'react'
 
 interface AddUserModalProps {
@@ -40,18 +40,72 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
     gender: 'Other',
     bio: '',
     interests: [] as string[],
+    location: '',
+    latitude: 0,
+    longitude: 0,
   })
   const [interestInput, setInterestInput] = useState('')
+  const [locationInput, setLocationInput] = useState('')
+  const [locationSuggestions, setLocationSuggestions] = useState<Array<{ name: string; lat: number; lon: number }>>([])
+  const [isSearchingLocation, setIsSearchingLocation] = useState(false)
+  const [showLocationSuggestions, setShowLocationSuggestions] = useState(false)
 
   const filteredInterests = AVAILABLE_INTERESTS.filter(interest =>
     interest.toLowerCase().includes(interestInput.toLowerCase()) &&
     !formData.interests.includes(interest)
   )
 
+  const searchLocation = async (query: string) => {
+    if (!query || query.length < 3) {
+      setLocationSuggestions([])
+      return
+    }
+
+    setIsSearchingLocation(true)
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`
+      )
+      const data = await response.json()
+      
+      const suggestions = data.map((item: any) => ({
+        name: item.display_name.split(',')[0] + ', ' + (item.address?.country || ''),
+        lat: parseFloat(item.lat),
+        lon: parseFloat(item.lon)
+      }))
+      
+      setLocationSuggestions(suggestions)
+    } catch (error) {
+      console.warn('Error searching location:', error instanceof Error ? error.message : 'Location search failed')
+    } finally {
+      setIsSearchingLocation(false)
+    }
+  }
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setLocationInput(value)
+    searchLocation(value)
+    setShowLocationSuggestions(true)
+  }
+
+  const selectLocation = (location: { name: string; lat: number; lon: number }) => {
+    setFormData({
+      ...formData,
+      location: location.name,
+      latitude: location.lat,
+      longitude: location.lon
+    })
+    setLocationInput(location.name)
+    setLocationSuggestions([])
+    setShowLocationSuggestions(false)
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onAdd(formData)
-    setFormData({ name: '', email: '', password: '', username: '', age: 0, gender: 'Other', bio: '', interests: [] })
+    setFormData({ name: '', email: '', password: '', username: '', age: 0, gender: 'Other', bio: '', interests: [], location: '', latitude: 0, longitude: 0 })
+    setLocationInput('')
     onClose()
   }
 
@@ -166,6 +220,50 @@ export function AddUserModal({ isOpen, onClose, onAdd }: AddUserModalProps) {
                     placeholder="Enter bio"
                     rows={3}
                   />
+                </div>
+                <div>
+                  <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Location</label>
+                  <div className="space-y-2">
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={locationInput}
+                        onChange={handleLocationChange}
+                        onFocus={() => setShowLocationSuggestions(true)}
+                        placeholder="Search location (e.g., Tokyo, New York)..."
+                        className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                      />
+                      
+                      {isSearchingLocation && (
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                          <Loader size={16} className="animate-spin text-muted" />
+                        </div>
+                      )}
+
+                      {/* Location Suggestions Dropdown */}
+                      {showLocationSuggestions && locationSuggestions.length > 0 && (
+                        <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-10 max-h-40 overflow-y-auto">
+                          {locationSuggestions.map((location, idx) => (
+                            <button
+                              key={idx}
+                              type="button"
+                              onClick={() => selectLocation(location)}
+                              className="w-full text-left px-3 py-2.5 hover:bg-surface text-xs sm:text-sm text-foreground transition border-b border-border last:border-b-0 flex items-center gap-2"
+                            >
+                              <MapPin size={14} className="text-muted flex-shrink-0" />
+                              {location.name}
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {formData.latitude !== 0 && formData.longitude !== 0 && (
+                      <p className="text-xs text-muted bg-surface/50 p-2 rounded-lg">
+                        Lat: {formData.latitude.toFixed(4)}, Long: {formData.longitude.toFixed(4)}
+                      </p>
+                    )}
+                  </div>
                 </div>
                 <div>
                   <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Interests (Max 5)</label>

@@ -70,6 +70,10 @@ export function CoffeeShops() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [isGettingLocation, setIsGettingLocation] = useState(false)
+  const [locationInput, setLocationInput] = useState('')
+  const [locationSuggestions, setLocationSuggestions] = useState<Array<{ name: string; lat: number; lon: number }>>([])
+  const [isSearchingLocation, setIsSearchingLocation] = useState(false)
+  const [showLocationSuggestions, setShowLocationSuggestions] = useState(false)
 
   const getLocationName = async (lat: number, lng: number): Promise<string> => {
     try {
@@ -93,12 +97,57 @@ export function CoffeeShops() {
       }
       return `${lat.toFixed(4)}, ${lng.toFixed(4)}`
     } catch (error) {
-      console.error('Error getting location name:', error)
+      console.warn('Error getting location name:', error instanceof Error ? error.message : 'Location reverse geocoding failed')
       return `${lat.toFixed(4)}, ${lng.toFixed(4)}`
     }
   }
 
-  
+  const searchLocation = async (query: string) => {
+    if (!query || query.length < 3) {
+      setLocationSuggestions([])
+      return
+    }
+
+    setIsSearchingLocation(true)
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`
+      )
+      const data = await response.json()
+      
+      const suggestions = data.map((item: any) => ({
+        name: item.display_name.split(',')[0] + ', ' + (item.address?.country || ''),
+        lat: parseFloat(item.lat),
+        lon: parseFloat(item.lon)
+      }))
+      
+      setLocationSuggestions(suggestions)
+    } catch (error) {
+      console.warn('Error searching location:', error instanceof Error ? error.message : 'Location search failed')
+    } finally {
+      setIsSearchingLocation(false)
+    }
+  }
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setLocationInput(value)
+    searchLocation(value)
+    setShowLocationSuggestions(true)
+  }
+
+  const selectLocation = (location: { name: string; lat: number; lon: number }) => {
+    setFormData({
+      ...formData,
+      location: location.name,
+      latitude: location.lat,
+      longitude: location.lon
+    })
+    setLocationInput(location.name)
+    setLocationSuggestions([])
+    setShowLocationSuggestions(false)
+  }
+
   const handleGetLiveLocationForAddShop = async () => {
     setIsGettingLocation(true)
     try {
@@ -561,14 +610,39 @@ export function CoffeeShops() {
                     <div>
                       <label className="block text-xs sm:text-sm font-600 text-foreground mb-2 uppercase tracking-wide">Location</label>
                       <div className="space-y-2">
-                        <input
-                          type="text"
-                          value={formData.location}
-                          onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                          required
-                          className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
-                          placeholder="e.g. Downtown or use Get Live Location"
-                        />
+                        <div className="relative">
+                          <input
+                            type="text"
+                            value={locationInput}
+                            onChange={handleLocationChange}
+                            onFocus={() => setShowLocationSuggestions(true)}
+                            placeholder="Search location (e.g., Tokyo, New York)..."
+                            className="w-full px-3 py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm bg-background focus:outline-none focus:border-blue focus:ring-1 focus:ring-blue/20 transition"
+                          />
+                          
+                          {isSearchingLocation && (
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                              <Loader size={16} className="animate-spin text-muted" />
+                            </div>
+                          )}
+
+                          {/* Location Suggestions Dropdown */}
+                          {showLocationSuggestions && locationSuggestions.length > 0 && (
+                            <div className="absolute top-full left-0 right-0 mt-1 bg-background border border-border rounded-lg shadow-lg z-10 max-h-40 overflow-y-auto">
+                              {locationSuggestions.map((location, idx) => (
+                                <button
+                                  key={idx}
+                                  type="button"
+                                  onClick={() => selectLocation(location)}
+                                  className="w-full text-left px-3 py-2.5 hover:bg-surface text-xs sm:text-sm text-foreground transition border-b border-border last:border-b-0 flex items-center gap-2"
+                                >
+                                  <MapPin size={14} className="text-muted flex-shrink-0" />
+                                  {location.name}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                         <motion.button
                           whileHover={{ scale: 1.02 }}
                           whileTap={{ scale: 0.98 }}

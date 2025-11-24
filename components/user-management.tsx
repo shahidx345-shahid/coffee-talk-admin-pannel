@@ -85,8 +85,8 @@ export function UserManagement() {
         gender: newUserData.gender || 'Other',
         interests: newUserData.interests || [],  // From modal interest selection
         lastLocationUpdate: now,
-        latitude: 0,  // Default location - user's actual location from mobile app
-        longitude: 0,  // Default location - user's actual location from mobile app
+        latitude: newUserData.latitude || 0,  // From location search
+        longitude: newUserData.longitude || 0,  // From location search
         profileImageUrl: '',  // Empty - user uploads profile picture in mobile app
         updatedAt: now,
         username: newUserData.username,  // From modal username field
