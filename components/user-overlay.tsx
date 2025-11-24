@@ -35,9 +35,11 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
         ...editData,
         fullName: editData.name || editData.fullName,  // Save name as fullName
       }
-      onEdit(userData)
+      // Wait for the parent's onEdit to complete before closing
+      await onEdit(userData)
       setIsEditing(false)
       setEditData(null)
+      onClose()
     }
   }
 

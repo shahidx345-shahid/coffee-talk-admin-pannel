@@ -286,8 +286,6 @@ export function UserManagement() {
             })
             // Update local state after successful save
             setUsers(users.map(u => u.id === updatedUser.id ? updatedUser : u))
-            setIsOverlayOpen(false)
-            setSelectedUser(null)
           } catch (error) {
             console.error('Error updating user:', error)
             alert('Error updating user: ' + (error instanceof Error ? error.message : 'Unknown error'))
