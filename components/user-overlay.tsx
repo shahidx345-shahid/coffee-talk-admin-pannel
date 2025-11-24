@@ -65,19 +65,19 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 30 }}
             transition={{ type: 'spring', damping: 28, stiffness: 320 }}
-            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-100px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
+            className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-xs sm:max-w-sm md:max-w-md bg-surface border border-border rounded-xl shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-90px)] sm:max-h-[calc(100vh-100px)] md:max-h-[85vh] flex flex-col mt-16 md:mt-0"
           >
             {/* Header */}
-            <div className="relative p-2 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
-              <div className="flex items-center justify-between gap-2 md:gap-4">
+            <div className="relative p-2 sm:p-3 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
+              <div className="flex items-center justify-between gap-2 sm:gap-3 md:gap-4">
                 <div className="min-w-0 flex-1">
                   {viewOnly ? (
-                    <h2 className="text-lg md:text-xl font-800 text-foreground truncate tracking-tight">
+                    <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-800 text-foreground truncate tracking-tight">
                       User Details
                     </h2>
                   ) : (
                     <>
-                      <h2 className="text-lg md:text-xl font-800 text-foreground truncate tracking-tight">
+                      <h2 className="text-sm sm:text-base md:text-lg lg:text-xl font-800 text-foreground truncate tracking-tight">
                         {isEditing ? 'Edit Profile' : 'Edit Profile'}
                       </h2>
                       <p className="text-sm text-muted mt-1 font-400">Manage user account details</p>
@@ -96,15 +96,15 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Content */}
-            <div className="overflow-y-auto flex-1 p-2 md:p-4 space-y-2 md:space-y-3">
+            <div className="overflow-y-auto flex-1 p-2 sm:p-2.5 md:p-4 space-y-2 sm:space-y-2.5 md:space-y-3">
               {/* Avatar and Name Section */}
               <motion.div
-                className="flex flex-col items-center gap-2 md:gap-4 pb-3 md:pb-4 border-b border-border/50"
+                className="flex flex-col items-center gap-2 sm:gap-2.5 md:gap-4 pb-2 sm:pb-2.5 md:pb-4 border-b border-border/50"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-color-blue to-color-accent flex items-center justify-center text-2xl shadow-lg flex-shrink-0">
+                <div className="w-12 sm:w-14 md:w-16 h-12 sm:h-14 md:h-16 rounded-xl bg-gradient-to-br from-color-blue to-color-accent flex items-center justify-center text-lg sm:text-xl md:text-2xl shadow-lg flex-shrink-0">
                   {displayUser.avatar}
                 </div>
                 <div className="w-full text-center">
@@ -113,7 +113,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                       type="text"
                       value={editData?.name || ''}
                       onChange={(e) => setEditData({ ...editData!, name: e.target.value })}
-                      className="w-full text-lg font-800 bg-background border-2 border-blue/30 rounded-lg px-3 py-2 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all text-center tracking-tight"
+                      className="w-full text-sm sm:text-base md:text-lg font-800 bg-background border-2 border-blue/30 rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all text-center tracking-tight"
                       placeholder="Enter name"
                     />
                   ) : (
@@ -124,7 +124,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
               </motion.div>
 
               {/* Info Grid - Compact */}
-              <div className="grid grid-cols-1 gap-2 md:gap-4">
+              <div className="grid grid-cols-1 gap-1.5 sm:gap-2 md:gap-3">
                 {/* Email */}
                 <motion.div
                   className="space-y-2"
@@ -229,13 +229,13 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
             </div>
 
             {/* Footer with Buttons */}
-            <div className="flex gap-2 md:gap-3 p-2 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
+            <div className="flex gap-1.5 sm:gap-2 md:gap-3 p-1.5 sm:p-2 md:p-5 border-t border-border bg-gradient-to-r from-background via-surface to-background flex-shrink-0">
               {viewOnly ? (
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onClose}
-                  className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
+                  className="flex-1 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
                 >
                   Close
                 </motion.button>
@@ -245,7 +245,7 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCancel}
-                    className="flex-1 px-3 md:px-4 py-2.5 border-2 border-border rounded-lg text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
+                    className="flex-1 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 border-2 border-border rounded-lg text-xs sm:text-sm md:text-base font-700 text-foreground hover:bg-background hover:border-muted transition-all tracking-tight cursor-pointer"
                   >
                     Cancel
                   </motion.button>
@@ -253,10 +253,10 @@ export function UserOverlay({ user, isOpen, onClose, onEdit, viewOnly = false }:
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSave}
-                    className="flex-1 px-3 md:px-4 py-2.5 text-white rounded-lg text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-2 hover:opacity-90 tracking-tight cursor-pointer"
+                    className="flex-1 px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-2.5 text-white rounded-lg text-xs sm:text-sm md:text-base font-700 hover:shadow-lg transition-all flex items-center justify-center gap-1 sm:gap-2 hover:opacity-90 tracking-tight cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
-                    <Save size={16} />
+                    <Save size={14} className="sm:w-4 sm:h-4 md:w-5 md:h-5" />
                     <span>Save</span>
                   </motion.button>
                 </>
