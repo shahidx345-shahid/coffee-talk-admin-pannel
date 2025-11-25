@@ -1,3 +1,4 @@
+@import url('https://api.fontshare.com/v2/fonts/satoshi?token=YOUR_TOKEN&display=swap');
 @import 'tailwindcss';
 
 @theme inline {
@@ -23,27 +24,10 @@ html {
   transition-duration: 150ms;
 }
 
-/* Critical CSS optimizations for faster LCP */
-img {
-  content-visibility: auto;
-}
-
 /* Disable animations during page load for faster LCP */
 html.preload * {
   animation: none !important;
   transition: none !important;
-}
-
-/* Optimize font loading */
-@font-face {
-  font-family: 'system-fallback';
-  font-style: normal;
-  font-weight: 300 900;
-  src: local('Arial');
-  ascent-override: 95%;
-  descent-override: 25%;
-  line-gap-override: 0%;
-  size-adjust: 100%;
 }
 
 body {
