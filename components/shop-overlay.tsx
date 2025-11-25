@@ -108,7 +108,6 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
         })
       } catch (error) {
         console.error('Error uploading image:', error)
-        alert('Error uploading image: ' + (error instanceof Error ? error.message : 'Unknown error'))
       }
     }
   }
@@ -133,7 +132,6 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
         })
       } catch (error) {
         console.error('Error uploading image:', error)
-        alert('Error uploading image: ' + (error instanceof Error ? error.message : 'Unknown error'))
       }
     }
   }
@@ -240,7 +238,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                 {/* Main Picture Display */}
                 <div className="relative w-full aspect-video xs:aspect-square rounded-lg bg-surface border-2 border-border flex items-center justify-center overflow-hidden flex-shrink-0">
                   {pictures[currentPictureIndex]?.startsWith('data:') || pictures[currentPictureIndex]?.startsWith('http') ? (
-                    <img src={pictures[currentPictureIndex]} alt={`${displayShop.name} ${currentPictureIndex + 1}`} className="w-full h-full object-cover" />
+                    <img src={pictures[currentPictureIndex]} alt={`${displayShop.name} ${currentPictureIndex + 1}`} className="w-full h-full object-cover" loading="eager" fetchPriority="high" />
                   ) : (
                     <span className="text-6xl">{pictures[currentPictureIndex]}</span>
                   )}

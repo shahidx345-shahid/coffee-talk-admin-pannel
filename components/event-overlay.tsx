@@ -97,6 +97,8 @@ export function EventOverlay({ event, isOpen, onClose, viewOnly }: EventOverlayP
                       src={event.imageUrl}
                       alt={event.eventName}
                       className="w-full h-full object-cover"
+                      loading="eager"
+                      fetchPriority="high"
                     />
                   </motion.div>
                 )}

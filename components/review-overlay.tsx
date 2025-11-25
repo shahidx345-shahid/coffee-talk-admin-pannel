@@ -49,12 +49,12 @@ export function ReviewOverlay({
 
   const handleSubmit = () => {
     if (!formData.name || !formData.country || !formData.reviewText.trim()) {
-      alert('Please fill in all fields')
+      console.log('Please fill in all fields')
       return
     }
 
     if (formData.rating < 1) {
-      alert('Please select at least 1 star')
+      console.log('Please select at least 1 star')
       return
     }
 
@@ -212,7 +212,7 @@ export function ReviewOverlay({
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleSubmit}
-                    className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-sm transition-all"
+                    className="flex-1 px-4 py-2.5 text-white rounded-lg font-600 text-sm transition-all cursor-pointer"
                     style={{ backgroundColor: '#fa9233' }}
                   >
                     {review ? 'Update Review' : 'Add Review'}

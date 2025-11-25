@@ -187,7 +187,7 @@ export function CoffeeShops() {
   }
   const handleAddShop = async () => {
     if (!formData.title || !formData.location || formData.pictures.length === 0) {
-      alert('Please add at least one picture, title, and location')
+      console.log('Please add at least one picture, title, and location')
       return
     }
 
@@ -373,7 +373,7 @@ export function CoffeeShops() {
                             ) : (
                               <div className="w-12 h-12 bg-surface rounded-lg overflow-hidden flex items-center justify-center">
                                 {shop.picture ? (
-                                  <img src={shop.picture} alt={shop.name} className="w-full h-full object-cover" />
+                                  <img src={shop.picture} alt={shop.name} className="w-full h-full object-cover" loading="lazy" />
                                 ) : (
                                   <div className="w-full h-full bg-surface flex items-center justify-center text-muted text-xs">No Image</div>
                                 )}
@@ -545,7 +545,6 @@ export function CoffeeShops() {
                                 }))
                               } catch (error) {
                                 console.error('Error uploading image:', error)
-                                alert('Error uploading image')
                               }
                             }
                           }}

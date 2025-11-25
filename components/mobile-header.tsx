@@ -1,6 +1,6 @@
 'use client'
 
-import { Menu, X, Users, Coffee, Heart, LogOut, Calendar } from 'lucide-react'
+import { Menu, X, Users, Coffee, Heart, LogOut, Calendar, Star } from 'lucide-react'
 import { useState } from 'react'
 
 interface MobileHeaderProps {
@@ -11,12 +11,18 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ activeSection, setActiveSection, onLogout }: MobileHeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<string | null>(null)
 
-  const navItems = [
+  const generalItems = [
     { id: 'users', label: 'User management', icon: Users },
+  ]
+
+  const coffeeItems = [
     { id: 'shops', label: 'Coffee Shops', icon: Coffee },
     { id: 'interests', label: 'Interests', icon: Heart },
+    { id: 'reviews', label: 'Reviews', icon: Star },
+  ]
+
+  const eventItems = [
     { id: 'events', label: 'Events', icon: Calendar },
   ]
 
@@ -70,39 +76,102 @@ export function MobileHeader({ activeSection, setActiveSection, onLogout }: Mobi
 
       {/* Mobile Sidebar Menu */}
       <div
-        className="md:hidden fixed top-16 left-0 right-0 bg-surface border-b border-border z-50 shadow-lg transition-all"
+        className="md:hidden fixed top-16 left-0 bottom-0 w-64 bg-background border-r border-border z-50 shadow-xl transition-all overflow-y-auto"
         style={{ 
-          display: isOpen ? 'block' : 'none',
-          opacity: isOpen ? 1 : 0,
-          transitionDuration: '300ms',
-          maxHeight: 'calc(100vh - 64px)',
-          overflowY: 'auto'
+          transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transitionDuration: '300ms'
         }}
       >
-        <nav className="flex flex-col p-4 space-y-2">
-          {navItems.map((item) => {
-            const Icon = item.icon
-            const isActive = activeSection === item.id
+        <nav className="flex flex-col p-4 space-y-6">
+          {/* General Section */}
+          <div className="space-y-1">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider px-3 mb-3">
+              MANAGEMENT
+            </div>
+            <div className="space-y-1">
+              {generalItems.map((item) => {
+                const Icon = item.icon
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveSection(item.id)
+                      setIsOpen(false)
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-[#fa9233] text-white'
+                        : 'text-foreground hover:bg-surface'
+                    }`}
+                  >
+                    <Icon size={18} />
+                    <span>{item.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => {
-                  setSelectedItem(item.id)
-                  setActiveSection(item.id)
-                  setIsOpen(false)
-                }}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[#fa9233] text-white'
-                    : 'text-foreground hover:bg-background'
-                }`}
-              >
-                <Icon size={18} />
-                <span>{item.label}</span>
-              </button>
-            )
-          })}
+          {/* Catalog Section */}
+          <div className="space-y-1">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider px-3 mb-3">
+              CATALOG
+            </div>
+            <div className="space-y-1">
+              {coffeeItems.map((item) => {
+                const Icon = item.icon
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveSection(item.id)
+                      setIsOpen(false)
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-[#fa9233] text-white'
+                        : 'text-foreground hover:bg-surface'
+                    }`}
+                  >
+                    <Icon size={18} />
+                    <span>{item.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+
+          {/* Events Section */}
+          <div className="space-y-1">
+            <div className="text-xs font-semibold text-muted uppercase tracking-wider px-3 mb-3">
+              EVENTS
+            </div>
+            <div className="space-y-1">
+              {eventItems.map((item) => {
+                const Icon = item.icon
+                const isActive = activeSection === item.id
+                return (
+                  <button
+                    key={item.id}
+                    onClick={() => {
+                      setActiveSection(item.id)
+                      setIsOpen(false)
+                    }}
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
+                      isActive
+                        ? 'bg-[#fa9233] text-white'
+                        : 'text-foreground hover:bg-surface'
+                    }`}
+                  >
+                    <Icon size={18} />
+                    <span>{item.label}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
         </nav>
       </div>
 

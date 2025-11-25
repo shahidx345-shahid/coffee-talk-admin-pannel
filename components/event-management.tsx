@@ -149,6 +149,10 @@ export function EventManagement() {
                               src={event.imageUrl}
                               alt={event.eventName}
                               className="w-12 h-12 md:w-14 md:h-14 object-cover rounded-lg"
+                              loading={idx < 3 ? "eager" : "lazy"}
+                              fetchPriority={idx === 0 ? "high" : "low"}
+                              width="56"
+                              height="56"
                             />
                           ) : (
                             <div className="w-12 h-12 md:w-14 md:h-14 bg-surface rounded-lg flex items-center justify-center text-muted text-xs">

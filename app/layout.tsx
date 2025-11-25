@@ -4,8 +4,18 @@ import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const geist = Geist({ subsets: ["latin"], display: 'swap' });
-const geistMono = Geist_Mono({ subsets: ["latin"], display: 'swap' });
+const geist = Geist({ 
+  subsets: ["latin"], 
+  display: 'swap',
+  preload: true,
+  fallback: ['system-ui', 'arial']
+});
+const geistMono = Geist_Mono({ 
+  subsets: ["latin"], 
+  display: 'swap',
+  preload: true,
+  fallback: ['monospace']
+});
 
 export const metadata: Metadata = {
   title: 'Coffee Admin Panel',
@@ -19,12 +29,23 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="preload">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://www.firebaseio.com" />
-        <link rel="dns-prefetch" href="https://www.googleapis.com" />
+        <link rel="dns-prefetch" href="https://firebasestorage.googleapis.com" />
+        <link rel="dns-prefetch" href="https://firestore.googleapis.com" />
+        <link rel="preconnect" href="https://firebasestorage.googleapis.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('load', function() {
+                document.documentElement.classList.remove('preload');
+              });
+            `,
+          }}
+        />
       </head>
       <body className={`font-sans antialiased`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
