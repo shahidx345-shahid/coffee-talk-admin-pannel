@@ -78,10 +78,10 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit, viewOnly = 
             <div className="relative p-1.5 xs:p-2 sm:p-3 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-base md:text-lg font-700 text-foreground truncate">
+                  <h2 className="text-lg md:text-xl font-700 text-foreground truncate">
                     {isEditing ? 'Edit Interest' : 'Interest Details'}
                   </h2>
-                  <p className="text-xs text-muted mt-0.5 font-500">Manage interest information</p>
+                  <p className="text-sm text-muted mt-0.5 font-500">Manage interest information</p>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
@@ -103,17 +103,17 @@ export function InterestOverlay({ interest, isOpen, onClose, onEdit, viewOnly = 
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <label className="text-xs font-700 text-muted uppercase tracking-wider">Interest Name</label>
+                <label className="text-xs md:text-sm font-700 text-muted uppercase tracking-wider">Interest Name</label>
                 {isEditing ? (
                   <input
                     type="text"
                     value={editData?.name || ''}
                     onChange={(e) => setEditData({ ...editData!, name: e.target.value })}
-                    className="w-full text-base font-600 bg-background border-2 border-border rounded-lg px-3 py-2 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all"
+                    className="w-full text-sm font-600 bg-background border-2 border-border rounded-lg px-3 py-2 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all"
                     placeholder="Enter interest name"
                   />
                 ) : (
-                  <p className="text-base font-600 text-foreground bg-background/50 p-3 rounded-lg">{displayInterest.name}</p>
+                  <p className="text-sm font-600 text-foreground bg-background/50 p-3 rounded-lg">{displayInterest.name}</p>
                 )}
               </motion.div>
             </div>

@@ -76,6 +76,17 @@ export interface Interest {
   dateAdded: string
 }
 
+// Review Model - For coffee shop reviews
+export interface Review {
+  id: string
+  name: string                // Reviewer name
+  country: string             // Country code/name (e.g., "US")
+  rating: number              // 1-5 stars
+  reviewText: string          // Review content
+  createdAt?: number          // Timestamp
+  updatedAt?: number          // Last updated timestamp
+}
+
 // ============ COFFEE SHOPS FUNCTIONS ============
 export const coffeeShopService = {
   // Get all coffee shops
@@ -197,15 +208,19 @@ export const eventService = {
   // Get all events
   async getAllEvents(): Promise<EventModel[]> {
     try {
+      console.log('getAllEvents: Fetching events from Firestore...')
       const q = query(collection(db, 'events'), orderBy('createdAt', 'desc'))
       const snapshot = await getDocs(q)
-      return snapshot.docs.map((doc) => ({
+      console.log('getAllEvents: Got snapshot with', snapshot.docs.length, 'documents')
+      const events = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-        eventDate: doc.data().eventDate?.toDate(),
-        createdAt: doc.data().createdAt?.toDate(),
-        updatedAt: doc.data().updatedAt?.toDate(),
+        eventDate: doc.data().eventDate?.toDate?.() || doc.data().eventDate,
+        createdAt: doc.data().createdAt?.toDate?.() || doc.data().createdAt,
+        updatedAt: doc.data().updatedAt?.toDate?.() || doc.data().updatedAt,
       })) as EventModel[]
+      console.log('getAllEvents: Mapped events:', events)
+      return events
     } catch (error) {
       console.error('Error fetching events:', error)
       throw error
@@ -213,7 +228,7 @@ export const eventService = {
   },
 
 
-  
+
   // Get single event
   async getEventById(id: string): Promise<EventModel | null> {
     try {
@@ -445,6 +460,123 @@ export const interestService = {
       await deleteDoc(doc(db, 'interests', id))
     } catch (error) {
       console.error('Error deleting interest:', error)
+      throw error
+    }
+  },
+}
+
+// ============ REVIEWS FUNCTIONS ============
+export const reviewService = {
+  // Get all reviews
+  async getAllReviews(): Promise<Review[]> {
+    try {
+      console.log('getAllReviews: Fetching reviews from Firestore...')
+      const q = query(collection(db, 'reviews'), orderBy('createdAt', 'desc'))
+      const snapshot = await getDocs(q)
+      console.log('getAllReviews: Got snapshot with', snapshot.docs.length, 'documents')
+      const reviews = snapshot.docs.map((doc) => {
+        const data = doc.data()
+        return {
+          id: doc.id,
+          name: data.name,
+          country: data.country,
+          rating: data.rating,
+          reviewText: data.reviewText,
+          createdAt: data.createdAt?.toMillis?.() || data.createdAt,
+          updatedAt: data.updatedAt?.toMillis?.() || data.updatedAt,
+        } as Review
+      })
+      console.log('getAllReviews: Mapped reviews:', reviews)
+      return reviews
+    } catch (error) {
+      console.error('Error fetching reviews:', error)
+      throw error
+    }
+  },
+
+  // Get reviews for specific coffee shop
+  async getReviewsByShopId(coffeeShopId: string): Promise<Review[]> {
+    try {
+      const q = query(
+        collection(db, 'reviews'),
+        orderBy('createdAt', 'desc')
+      )
+      const snapshot = await getDocs(q)
+      return snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      })) as Review[]
+    } catch (error) {
+      console.error('Error fetching reviews for shop:', error)
+      throw error
+    }
+  },
+
+  // Get single review
+  async getReviewById(id: string): Promise<Review | null> {
+    try {
+      const docRef = doc(db, 'reviews', id)
+      const snapshot = await getDoc(docRef)
+      if (snapshot.exists()) {
+        return {
+          id: snapshot.id,
+          ...snapshot.data(),
+        } as Review
+      }
+      return null
+    } catch (error) {
+      console.error('Error fetching review:', error)
+      throw error
+    }
+  },
+
+  // Create review
+  async createReview(data: Omit<Review, 'id' | 'createdAt' | 'updatedAt'>): Promise<Review> {
+    try {
+      console.log('createReview: Starting to create review with data:', data)
+      const now = Timestamp.now()
+      console.log('createReview: Timestamp created:', now)
+      const docRef = await addDoc(collection(db, 'reviews'), {
+        ...data,
+        createdAt: now,
+        updatedAt: now,
+      })
+      console.log('createReview: Document created with ID:', docRef.id)
+      const result = {
+        id: docRef.id,
+        ...data,
+        createdAt: now.toMillis(),
+        updatedAt: now.toMillis(),
+      }
+      console.log('createReview: Returning:', result)
+      return result
+    } catch (error) {
+      console.error('Error creating review:', error)
+      console.error('Error details:', (error as any)?.code, (error as any)?.message)
+      throw error
+    }
+  },
+
+  // Update review
+  async updateReview(id: string, data: Partial<Review>): Promise<void> {
+    try {
+      const docRef = doc(db, 'reviews', id)
+      await updateDoc(docRef, {
+        ...data,
+        updatedAt: Timestamp.now().toMillis(),
+      })
+    } catch (error) {
+      console.error('Error updating review:', error)
+      throw error
+    }
+  },
+
+  // Delete review
+  async deleteReview(id: string): Promise<void> {
+    try {
+      await deleteDoc(doc(db, 'reviews', id))
+    } catch (error) {
+      console.error('Error deleting review:', error)
       throw error
     }
   },

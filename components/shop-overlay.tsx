@@ -212,10 +212,10 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
             <div className="relative p-1.5 xs:p-2 sm:p-3 md:p-5 border-b border-border bg-gradient-to-r from-surface via-background to-surface flex-shrink-0">
               <div className="flex items-center justify-between gap-1.5 xs:gap-2 sm:gap-3 md:gap-3">
                 <div className="min-w-0 flex-1">
-                  <h2 className="text-xs xs:text-sm sm:text-base md:text-lg font-700 text-foreground truncate">
-                    {isEditing ? 'Edit Shop' : 'Shop Details'}
-                  </h2>
-                  <p className="text-xs text-muted mt-0.5 font-500">Manage shop information</p>
+                <h2 className="text-lg md:text-xl font-700 text-foreground truncate">
+                  {isEditing ? 'Edit Shop' : 'Shop Details'}
+                </h2>
+                <p className="text-sm text-muted mt-0.5 font-500">Manage shop information</p>
                 </div>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
@@ -359,17 +359,17 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 }}
                 >
-                  <label className="text-xs font-700 text-muted uppercase tracking-wider">Title</label>
+                  <label className="text-xs md:text-sm font-700 text-muted uppercase tracking-wider">Title</label>
                   {isEditing ? (
                     <input
                       type="text"
                       value={editData?.title || ''}
                       onChange={(e) => setEditData({ ...editData!, title: e.target.value })}
-                      className="w-full text-xs bg-background border-2 border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-500"
+                      className="w-full text-sm bg-background border-2 border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-500"
                       placeholder="Enter title"
                     />
                   ) : (
-                    <p className="text-xs text-foreground font-500 bg-background/50 p-1.5 rounded-lg">{displayShop.title}</p>
+                    <p className="text-sm text-foreground font-500 bg-background/50 p-1.5 rounded-lg">{displayShop.title}</p>
                   )}
                 </motion.div>
 
@@ -382,7 +382,7 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                 >
                   <div className="flex items-center gap-1.5">
                     <MapPin size={14} className="text-blue flex-shrink-0" />
-                    <label className="text-xs font-700 text-muted uppercase tracking-wider">Location</label>
+                    <label className="text-xs md:text-sm font-700 text-muted uppercase tracking-wider">Location</label>
                   </div>
                   {isEditing ? (
                     <div className="space-y-2">
@@ -390,13 +390,13 @@ export function ShopOverlay({ shop, isOpen, onClose, onEdit, viewOnly = false }:
                         type="text"
                         value={editData?.location || ''}
                         onChange={(e) => setEditData({ ...editData!, location: e.target.value })}
-                        className="w-full text-xs bg-background border-2 border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-500"
+                        className="w-full text-sm bg-background border-2 border-border rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue focus:ring-2 focus:ring-blue/20 transition-all font-500"
                         placeholder="Enter location"
                       />
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <p className="text-xs text-foreground font-500 bg-background/50 p-1.5 rounded-lg">{displayShop.location}</p>
+                      <p className="text-sm text-foreground font-500 bg-background/50 p-1.5 rounded-lg">{displayShop.location}</p>
                     </div>
                   )}
                 </motion.div>

@@ -2,32 +2,50 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     // Admin collection - only authenticated admins
-    match /admins/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid in get(/databases/$(database)/documents/admins/$(request.auth.uid)).data.roles;
+    match /admins/{adminId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == adminId;
     }
     
-    // Users collection - public read, admin write
-    match /users/{document=**} {
+    // Users collection - allow all reads, authenticated writes
+    match /users/{userId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null;
     }
     
-    // Coffee shops collection - public read, admin write
-    match /coffeeShops/{document=**} {
+    // Coffee shops collection - allow all reads, authenticated writes
+    match /coffeeShops/{shopId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null;
     }
     
-    // Interests collection - public read, admin write
-    match /interests/{document=**} {
+    // Interests collection - allow all reads, authenticated writes
+    match /interests/{interestId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null;
     }
     
-    // Events collection - public read, admin write
-    match /events/{document=**} {
+    // Events collection - allow all reads, authenticated writes
+    match /events/{eventId} {
       allow read: if true;
-      allow create, update, delete: if request.auth != null;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null;
+    }
+
+    // Reviews collection - allow all reads and writes (ADD THIS)
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if true;
+      allow update, delete: if true;
+    }
+
+    // Default deny rule for safety
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }
+

@@ -15,7 +15,6 @@ interface DeleteConfirmModalProps {
   }[]
   isLoading?: boolean
 }
-
 export function DeleteConfirmModal({
   isOpen,
   onClose,

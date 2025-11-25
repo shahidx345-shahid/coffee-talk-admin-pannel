@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "coffee-talk-android"
+    "default": "coffeetalk-staging"
   },
   "firestore": {
     "rules": "firestore.rules",

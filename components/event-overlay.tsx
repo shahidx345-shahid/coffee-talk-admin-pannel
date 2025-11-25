@@ -72,7 +72,7 @@ export function EventOverlay({ event, isOpen, onClose, viewOnly }: EventOverlayP
             >
               {/* Header */}
               <div className="sticky top-0 flex items-center justify-between p-3 md:p-4 border-b border-border bg-surface/50 backdrop-blur-sm z-10">
-                <h2 className="text-base md:text-lg font-bold text-foreground">Event Details</h2>
+                <h2 className="text-lg md:text-xl font-bold text-foreground">Event Details</h2>
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.95 }}

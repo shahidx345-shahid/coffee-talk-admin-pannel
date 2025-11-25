@@ -2,22 +2,25 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Trash2, Eye } from 'lucide-react'
+import { Plus, Search, Trash2, Eye } from 'lucide-react'
 import { LoadingTable } from './loading'
 import { Header } from './header'
 import { EventOverlay, type Event } from './event-overlay'
 import { EventDeleteOverlay } from './event-delete-overlay'
-import { db } from '@/firebase.config'
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
+import { eventService } from '@/lib/firebase-service'
 
-
-const formatDate = (timestamp: number) => {
+const formatDate = (timestamp: any) => {
   if (!timestamp) return 'N/A'
-  return new Date(timestamp).toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  })
+  try {
+    const date = timestamp instanceof Date ? timestamp : new Date(timestamp)
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    })
+  } catch {
+    return 'N/A'
+  }
 }
 
 export function EventManagement() {
@@ -27,47 +30,38 @@ export function EventManagement() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log('Starting to fetch events...')
-        const snapshot = await getDocs(collection(db, 'events'))
-        console.log('Events collection snapshot:', snapshot)
-        console.log('Number of events:', snapshot.docs.length)
-
-        const mappedEvents: Event[] = snapshot.docs.map((doc) => {
-          const data = doc.data()
-          console.log('Event data from Firebase:', data)
-          return {
-            id: doc.id,
-            eventName: data.eventName || '',
-            description: data.description || '',
-            location: data.location || '',
-            latitude: data.latitude || 0,
-            longitude: data.longitude || 0,
-            cafeName: data.cafeName || '',
-            cafeAddress: data.cafeAddress || '',
-            cafeLatitude: data.cafeLatitude || 0,
-            cafeLongitude: data.cafeLongitude || 0,
-            eventDate: data.eventDate?.toMillis?.() || data.eventDate || Date.now(),
-            maxAttendees: data.maxAttendees || 0,
-            imageUrl: data.imageUrl || '',
-            createdAt: data.createdAt?.toMillis?.() || data.createdAt || Date.now(),
-            updatedAt: data.updatedAt?.toMillis?.() || data.updatedAt || Date.now(),
-            attendeesCount: data.attendeesCount || 0,
-            createdBy: data.createdBy || ''
-          }
-        })
+        console.log('Fetching events...')
+        const fetchedEvents = await eventService.getAllEvents()
+        console.log('Fetched events from service:', fetchedEvents)
+        const mappedEvents: Event[] = fetchedEvents.map((event: any) => ({
+          id: event.id,
+          eventName: event.eventName,
+          description: event.description,
+          location: event.location,
+          latitude: event.latitude,
+          longitude: event.longitude,
+          cafeName: event.cafeName,
+          cafeAddress: event.cafeAddress,
+          cafeLatitude: event.cafeLatitude,
+          cafeLongitude: event.cafeLongitude,
+          eventDate: event.eventDate instanceof Date ? event.eventDate.getTime() : event.eventDate,
+          maxAttendees: event.maxAttendees,
+          imageUrl: event.imageUrl,
+          createdAt: event.createdAt,
+          updatedAt: event.updatedAt,
+          attendeesCount: event.attendeesCount,
+        }))
         console.log('Mapped events:', mappedEvents)
         setEvents(mappedEvents)
       } catch (error) {
         console.error('Error fetching events:', error)
-        alert(`Error fetching events: ${error instanceof Error ? error.message : 'Unknown error'}`)
       } finally {
         setIsLoading(false)
       }
     }
+
     fetchEvents()
   }, [])
-
-
 
 
 
@@ -78,7 +72,7 @@ export function EventManagement() {
 
   const handleDeleteEvent = async (eventId: string) => {
     try {
-      await deleteDoc(doc(db, 'events', eventId))
+      await eventService.deleteEvent(eventId)
       setEvents(events.filter(e => e.id !== eventId))
       setIsDeleteOpen(false)
       alert('Event deleted successfully!')

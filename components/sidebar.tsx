@@ -1,6 +1,6 @@
 'use client'
 
-import { Users, Coffee, Heart, Calendar } from 'lucide-react'
+import { Users, Coffee, Heart, Calendar, Star } from 'lucide-react'
 
 interface SidebarProps {
   activeSection: string
@@ -17,6 +17,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen = true, onClos
   const coffeeItems = [
     { id: 'shops', label: 'Coffee Shops', icon: Coffee },
     { id: 'interests', label: 'Interests', icon: Heart },
+    { id: 'reviews', label: 'Reviews', icon: Star },
   ]
 
   const eventItems = [
@@ -31,11 +32,10 @@ export function Sidebar({ activeSection, setActiveSection, isOpen = true, onClos
           setActiveSection(item.id)
           onClose?.()
         }}
-        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${
-          isActive
+        className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-500 transition-all cursor-pointer ${isActive
             ? 'text-white'
             : 'text-muted hover:bg-surface'
-        }`}
+          }`}
         style={isActive ? { backgroundColor: '#fa9233' } : {}}
         type="button"
       >
@@ -50,7 +50,7 @@ export function Sidebar({ activeSection, setActiveSection, isOpen = true, onClos
       {/* Header */}
       <div className="p-4 md:p-6 border-b border-border">
         <div className="flex items-center gap-3 px-3">
-          <div 
+          <div
             className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-lg"
             style={{ backgroundColor: '#03a3ec' }}
           >
